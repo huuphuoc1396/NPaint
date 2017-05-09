@@ -90,6 +90,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="pickButton">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/npaint/icon/pick_color_icon.png"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="toolsLabel">
       <Properties>

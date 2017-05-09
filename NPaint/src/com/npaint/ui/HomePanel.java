@@ -35,7 +35,7 @@ public class HomePanel extends javax.swing.JPanel {
         sizePanel = new com.npaint.ui.SizePanel();
         coloursPanel = new com.npaint.ui.ColoursPanel();
 
-        setPreferredSize(new java.awt.Dimension(1280, 200));
+        setPreferredSize(new java.awt.Dimension(1280, 150));
         java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 8);
         flowLayout1.setAlignOnBaseline(true);
         setLayout(flowLayout1);

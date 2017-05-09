@@ -45,6 +45,8 @@ public class ToolsPanel extends javax.swing.JPanel {
 
         textButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/text_icon.png"))); // NOI18N
 
+        pickButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/pick_color_icon.png"))); // NOI18N
+
         toolsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         toolsLabel.setText("Tools");
         toolsLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
