@@ -17,18 +17,18 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Component id="jButton1" min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="pencilButton" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton3" min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="fillButton" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton5" min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="textButton" min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
-              <Component id="jButton2" min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="rubberButton" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton4" min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="airBrushButton" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton6" min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="pickButton" min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
           <Component id="toolsLabel" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -37,15 +37,15 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="jButton3" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="jButton5" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="pencilButton" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="fillButton" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="textButton" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="jButton4" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="jButton6" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="rubberButton" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="airBrushButton" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="pickButton" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="25" max="32767" attributes="0"/>
               <Component id="toolsLabel" min="-2" max="-2" attributes="0"/>
@@ -54,35 +54,42 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="pencilButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton1"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/npaint/icon/pencil_icon.png"/>
+        </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="rubberButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton2"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/npaint/icon/rubber_icon.png"/>
+        </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="fillButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton3"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/npaint/icon/fill_colour_icon.png"/>
+        </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="airBrushButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton4"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/npaint/icon/airbrush_icon.png"/>
+        </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
+    <Component class="javax.swing.JButton" name="textButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton5"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/npaint/icon/text_icon.png"/>
+        </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton6">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jButton6"/>
-      </Properties>
+    <Component class="javax.swing.JButton" name="pickButton">
     </Component>
     <Component class="javax.swing.JLabel" name="toolsLabel">
       <Properties>

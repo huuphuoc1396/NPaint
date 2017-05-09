@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.npaint;
+package com.npaint.ui;
 
 /**
  *
@@ -12,7 +12,7 @@ package com.npaint;
 public class SizePanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form SizePanel
+     * Creates new form BrushesPanel
      */
     public SizePanel() {
         initComponents();
@@ -28,23 +28,32 @@ public class SizePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         sizeComboBox = new javax.swing.JComboBox<>();
+        sizeChooserLabel = new javax.swing.JLabel();
 
-        sizeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        sizeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Size 1", "Size 2", "Size 3", "Size 4", "Size 5", "Size 6" }));
+
+        sizeChooserLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        sizeChooserLabel.setText("Size");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sizeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(sizeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(sizeChooserLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sizeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(sizeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(sizeChooserLabel))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel sizeChooserLabel;
     private javax.swing.JComboBox<String> sizeComboBox;
     // End of variables declaration//GEN-END:variables
 }

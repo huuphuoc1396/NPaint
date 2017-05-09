@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.npaint;
+package com.npaint.ui;
 
 /**
  *
  * @author Huu Phuoc
  */
-public class BrushesPanel extends javax.swing.JPanel {
+public class DrawingPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form BrushesPanel
+     * Creates new form DrawingPanel
      */
-    public BrushesPanel() {
+    public DrawingPanel() {
         initComponents();
     }
 
@@ -27,26 +27,22 @@ public class BrushesPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        brushesComboBox = new javax.swing.JComboBox<>();
-
-        brushesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(brushesComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(brushesComboBox)
-                .addGap(0, 0, 0))
+            .addGap(0, 0, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> brushesComboBox;
     // End of variables declaration//GEN-END:variables
 }

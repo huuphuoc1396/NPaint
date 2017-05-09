@@ -17,7 +17,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="pastButton" max="32767" attributes="0"/>
+              <Component id="pasteButton" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="copyButton" max="32767" attributes="0"/>
@@ -31,7 +31,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="pastButton" alignment="0" max="32767" attributes="0"/>
+                  <Component id="pasteButton" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="cutButton" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -45,18 +45,29 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="pastButton">
+    <Component class="javax.swing.JButton" name="pasteButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Past"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/npaint/icon/paste_icon.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Paste"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
+        <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="cutButton">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/npaint/icon/cut_icon.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Cut"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="copyButton">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/npaint/icon/copy_icon.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Copy"/>
       </Properties>
     </Component>
