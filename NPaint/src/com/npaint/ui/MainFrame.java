@@ -5,6 +5,7 @@
  */
 package com.npaint.ui;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -18,6 +19,7 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form MainFrame
      */
     public MainFrame() {
+        this.setIconImage(new ImageIcon(getClass().getResource("/com/npaint/icon/npaint_icon.png")).getImage());
         initComponents();
     }
 
@@ -37,6 +39,7 @@ public class MainFrame extends javax.swing.JFrame {
         menuBar = new com.npaint.ui.MenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("NPaint Application");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
