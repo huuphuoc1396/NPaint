@@ -19,7 +19,7 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form MainFrame
      */
     public MainFrame() {
-        this.setIconImage(new ImageIcon(getClass().getResource("/com/npaint/icon/npaint_icon.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/com/npaint/icon/npaint_main_icon.png")).getImage());
         initComponents();
     }
 
