@@ -44,7 +44,7 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         optionsMenu = new JMenu("Options");
 
         helpMenu = new JMenu("Help");
-        helpItem = new JMenuItem("JPaint Help");
+        helpItem = new JMenuItem("NPaint Help");
         checkUpdateItem = new JMenuItem("Check for Updates");
         aboutItem = new JMenuItem("About");
 
