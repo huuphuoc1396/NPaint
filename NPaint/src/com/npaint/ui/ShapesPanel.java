@@ -185,7 +185,7 @@ public class ShapesPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_fillCheckBoxActionPerformed
 
     private void lineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lineButtonActionPerformed
-       DrawingPanel.setEnumRope(EnumRope.LINE);
+        DrawingPanel.setEnumRope(EnumRope.LINE);
     }//GEN-LAST:event_lineButtonActionPerformed
 
     private void curveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_curveButtonActionPerformed

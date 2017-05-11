@@ -56,13 +56,28 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         add(viewMenu);
         add(optionsMenu);
         add(helpMenu);
+        addAction();
+    }
+
+    public void addAction() {
+        newItem.addActionListener(this);
+        openItem.addActionListener(this);
+        saveItem.addActionListener(this);
+        saveAsItem.addActionListener(this);
+        closeItem.addActionListener(this);
+        helpItem.addActionListener(this);
+        checkUpdateItem.addActionListener(this);
+        aboutItem.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == newItem) {
-
+            /* Create and display the form */
+            new Thread(() -> {
+                new MainFrame().setVisible(true);
+            }).start();
         }
 
         if (e.getSource() == openItem) {
@@ -78,7 +93,7 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         }
 
         if (e.getSource() == closeItem) {
-
+            System.exit(0);
         }
 
         if (e.getSource() == helpItem) {

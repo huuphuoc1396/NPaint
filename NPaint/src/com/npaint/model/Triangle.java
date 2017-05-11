@@ -27,7 +27,7 @@ public class Triangle extends ObjectDraw {
     public void setIsFill(boolean isFill) {
         this.isFill = isFill;
     }
-    
+
     public void trans() {
         width = Math.abs(getEnd().x - getStart().x);
 

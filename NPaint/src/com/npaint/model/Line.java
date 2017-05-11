@@ -13,7 +13,7 @@ import java.awt.Point;
  *
  * @author Minh Tien
  */
-public class Line extends ObjectDraw{
+public class Line extends ObjectDraw {
 
     public Line(Point start, Point end, Color color, float widthStroke) {
         super(start, end, color, widthStroke);

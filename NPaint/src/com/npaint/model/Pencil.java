@@ -13,7 +13,7 @@ import java.awt.Point;
  *
  * @author Minh Tien
  */
-public class Pencil extends ObjectDraw{
+public class Pencil extends ObjectDraw {
 
     public Pencil(Point start, Point end, Color color, float widthStroke) {
         super(start, end, color, widthStroke);

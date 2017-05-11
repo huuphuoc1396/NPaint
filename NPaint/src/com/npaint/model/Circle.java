@@ -22,7 +22,7 @@ public class Circle extends ObjectDraw {
     public void setIsFill(boolean isFill) {
         this.isFill = isFill;
     }
-    
+
     public Circle(Point start, Point end, Color color, float widthStroke, boolean isFill) {
         super(start, end, color, widthStroke);
         this.isFill = isFill;
@@ -39,7 +39,7 @@ public class Circle extends ObjectDraw {
             g2d.fillOval(x, y, r, r);
         } else {
             g2d.drawOval(x, y, r, r);
-        }       
+        }
     }
 
 }
