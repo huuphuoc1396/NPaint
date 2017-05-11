@@ -31,6 +31,11 @@ public class SizePanel extends javax.swing.JPanel {
         sizeChooserLabel = new javax.swing.JLabel();
 
         sizeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Size 1", "Size 2", "Size 3", "Size 4", "Size 5", "Size 6" }));
+        sizeComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sizeComboBoxActionPerformed(evt);
+            }
+        });
 
         sizeChooserLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         sizeChooserLabel.setText("Size");
@@ -51,9 +56,41 @@ public class SizePanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void sizeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeComboBoxActionPerformed
+        switch (sizeComboBox.getSelectedIndex()) {
+            case 0:
+                widthStroke = 1.5F;
+                break;
+            case 1:
+                widthStroke = 2.5F;
+                break;
+            case 2:
+                widthStroke = 3.5F;
+                break;
+            case 3:
+                widthStroke = 4.5F;
+                break;
+            case 4:
+                widthStroke = 5.5F;
+                break;
+            case 5:
+                widthStroke = 6.5F;
+                break;
+            case 6:
+                widthStroke = 7.5F;
+                break;
+        }
+    }//GEN-LAST:event_sizeComboBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel sizeChooserLabel;
     private javax.swing.JComboBox<String> sizeComboBox;
     // End of variables declaration//GEN-END:variables
+
+    private static float widthStroke = 1.5F;
+
+    public static float getWidthStroke() {
+        return widthStroke;
+    }
 }

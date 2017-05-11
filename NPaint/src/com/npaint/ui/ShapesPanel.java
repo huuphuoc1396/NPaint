@@ -5,6 +5,8 @@
  */
 package com.npaint.ui;
 
+import com.npaint.model.EnumRope;
+
 /**
  *
  * @author Huu Phuoc
@@ -28,56 +30,110 @@ public class ShapesPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         panel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        lineButton = new javax.swing.JButton();
+        curveButton = new javax.swing.JButton();
+        ovalButton = new javax.swing.JButton();
+        rectangleButton = new javax.swing.JButton();
+        rahimbusButton = new javax.swing.JButton();
+        triangleButton = new javax.swing.JButton();
+        startButton = new javax.swing.JButton();
+        heartButton = new javax.swing.JButton();
+        bahaiButton = new javax.swing.JButton();
         shapesLabel = new javax.swing.JLabel();
         fillCheckBox = new javax.swing.JCheckBox();
-        oulineButton = new javax.swing.JButton();
+        outlineButton = new javax.swing.JButton();
 
         panel.setLayout(new java.awt.GridLayout(3, 3, 1, 1));
 
-        jButton1.setAlignmentY(0.0F);
-        jButton1.setPreferredSize(new java.awt.Dimension(30, 30));
-        panel.add(jButton1);
+        lineButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/Line.png"))); // NOI18N
+        lineButton.setAlignmentY(0.0F);
+        lineButton.setPreferredSize(new java.awt.Dimension(30, 30));
+        lineButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lineButtonActionPerformed(evt);
+            }
+        });
+        panel.add(lineButton);
 
-        jButton4.setAlignmentY(0.0F);
-        jButton4.setPreferredSize(new java.awt.Dimension(30, 30));
-        panel.add(jButton4);
+        curveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/Curved.png"))); // NOI18N
+        curveButton.setAlignmentY(0.0F);
+        curveButton.setPreferredSize(new java.awt.Dimension(30, 30));
+        curveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                curveButtonActionPerformed(evt);
+            }
+        });
+        panel.add(curveButton);
 
-        jButton3.setAlignmentY(0.0F);
-        jButton3.setPreferredSize(new java.awt.Dimension(30, 30));
-        panel.add(jButton3);
+        ovalButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/Circle.png"))); // NOI18N
+        ovalButton.setAlignmentY(0.0F);
+        ovalButton.setPreferredSize(new java.awt.Dimension(30, 30));
+        ovalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ovalButtonActionPerformed(evt);
+            }
+        });
+        panel.add(ovalButton);
 
-        jButton5.setAlignmentY(0.0F);
-        jButton5.setPreferredSize(new java.awt.Dimension(30, 30));
-        panel.add(jButton5);
+        rectangleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/Rectangle.png"))); // NOI18N
+        rectangleButton.setAlignmentY(0.0F);
+        rectangleButton.setPreferredSize(new java.awt.Dimension(30, 30));
+        rectangleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rectangleButtonActionPerformed(evt);
+            }
+        });
+        panel.add(rectangleButton);
 
-        jButton6.setAlignmentY(0.0F);
-        jButton6.setPreferredSize(new java.awt.Dimension(30, 30));
-        panel.add(jButton6);
+        rahimbusButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/Rahimbus.png"))); // NOI18N
+        rahimbusButton.setAlignmentY(0.0F);
+        rahimbusButton.setPreferredSize(new java.awt.Dimension(30, 30));
+        rahimbusButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rahimbusButtonActionPerformed(evt);
+            }
+        });
+        panel.add(rahimbusButton);
 
-        jButton2.setAlignmentY(0.0F);
-        jButton2.setPreferredSize(new java.awt.Dimension(30, 30));
-        panel.add(jButton2);
+        triangleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/Triangle.png"))); // NOI18N
+        triangleButton.setAlignmentY(0.0F);
+        triangleButton.setPreferredSize(new java.awt.Dimension(30, 30));
+        triangleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                triangleButtonActionPerformed(evt);
+            }
+        });
+        panel.add(triangleButton);
 
-        jButton7.setAlignmentY(0.0F);
-        jButton7.setPreferredSize(new java.awt.Dimension(30, 30));
-        panel.add(jButton7);
+        startButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/Star.png"))); // NOI18N
+        startButton.setAlignmentY(0.0F);
+        startButton.setPreferredSize(new java.awt.Dimension(30, 30));
+        startButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startButtonActionPerformed(evt);
+            }
+        });
+        panel.add(startButton);
 
-        jButton8.setAlignmentY(0.0F);
-        jButton8.setPreferredSize(new java.awt.Dimension(30, 30));
-        panel.add(jButton8);
+        heartButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/heart.png"))); // NOI18N
+        heartButton.setAlignmentY(0.0F);
+        heartButton.setPreferredSize(new java.awt.Dimension(30, 30));
+        heartButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                heartButtonActionPerformed(evt);
+            }
+        });
+        panel.add(heartButton);
 
-        jButton9.setAlignmentY(0.0F);
-        jButton9.setPreferredSize(new java.awt.Dimension(30, 30));
-        panel.add(jButton9);
+        bahaiButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/Bahai.png"))); // NOI18N
+        bahaiButton.setAlignmentY(0.0F);
+        bahaiButton.setPreferredSize(new java.awt.Dimension(30, 30));
+        bahaiButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bahaiButtonActionPerformed(evt);
+            }
+        });
+        panel.add(bahaiButton);
 
         shapesLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         shapesLabel.setText("Shapes");
@@ -85,8 +141,18 @@ public class ShapesPanel extends javax.swing.JPanel {
 
         fillCheckBox.setText(" Fill");
         fillCheckBox.setToolTipText("");
+        fillCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fillCheckBoxActionPerformed(evt);
+            }
+        });
 
-        oulineButton.setText("Outline");
+        outlineButton.setText("Outline");
+        outlineButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                outlineButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -97,7 +163,7 @@ public class ShapesPanel extends javax.swing.JPanel {
                 .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(oulineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(outlineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fillCheckBox)))
         );
         layout.setVerticalGroup(
@@ -106,7 +172,7 @@ public class ShapesPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(oulineButton)
+                        .addComponent(outlineButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fillCheckBox)))
                 .addGap(0, 10, Short.MAX_VALUE)
@@ -114,20 +180,70 @@ public class ShapesPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void fillCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillCheckBoxActionPerformed
+        isFill = fillCheckBox.isSelected();
+    }//GEN-LAST:event_fillCheckBoxActionPerformed
+
+    private void lineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lineButtonActionPerformed
+       DrawingPanel.setEnumRope(EnumRope.LINE);
+    }//GEN-LAST:event_lineButtonActionPerformed
+
+    private void curveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_curveButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_curveButtonActionPerformed
+
+    private void ovalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ovalButtonActionPerformed
+        DrawingPanel.setEnumRope(EnumRope.OVAL);
+    }//GEN-LAST:event_ovalButtonActionPerformed
+
+    private void rectangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rectangleButtonActionPerformed
+        DrawingPanel.setEnumRope(EnumRope.RECT);
+    }//GEN-LAST:event_rectangleButtonActionPerformed
+
+    private void rahimbusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rahimbusButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rahimbusButtonActionPerformed
+
+    private void triangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_triangleButtonActionPerformed
+        DrawingPanel.setEnumRope(EnumRope.TRIANGLE);
+    }//GEN-LAST:event_triangleButtonActionPerformed
+
+    private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_startButtonActionPerformed
+
+    private void heartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heartButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_heartButtonActionPerformed
+
+    private void bahaiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bahaiButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bahaiButtonActionPerformed
+
+    private void outlineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outlineButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_outlineButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bahaiButton;
+    private javax.swing.JButton curveButton;
     private javax.swing.JCheckBox fillCheckBox;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JButton oulineButton;
+    private javax.swing.JButton heartButton;
+    private javax.swing.JButton lineButton;
+    private javax.swing.JButton outlineButton;
+    private javax.swing.JButton ovalButton;
     private javax.swing.JPanel panel;
+    private javax.swing.JButton rahimbusButton;
+    private javax.swing.JButton rectangleButton;
     private javax.swing.JLabel shapesLabel;
+    private javax.swing.JButton startButton;
+    private javax.swing.JButton triangleButton;
     // End of variables declaration//GEN-END:variables
+
+    public static boolean isFill;
+
+    public static boolean isIsFill() {
+        return isFill;
+    }
 }

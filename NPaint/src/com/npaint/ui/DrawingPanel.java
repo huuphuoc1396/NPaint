@@ -5,18 +5,29 @@
  */
 package com.npaint.ui;
 
+import com.npaint.model.EnumRope;
+import com.npaint.model.Line;
+import com.npaint.model.ObjectDraw;
+import com.npaint.model.Oval;
+import com.npaint.model.Pencil;
+import com.npaint.model.Rectangle;
+import com.npaint.model.Triangle;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Huu Phuoc
  */
-public class DrawingPanel extends javax.swing.JPanel {
-
-    /**
-     * Creates new form DrawingPanel
-     */
-    public DrawingPanel() {
-        initComponents();
-    }
+public final class DrawingPanel extends javax.swing.JPanel {
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,7 +55,142 @@ public class DrawingPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+    private static EnumRope enumRope = EnumRope.LINE;
+    private final ArrayList<ObjectDraw> objectDraws;
+
+    private Point start;
+    private Point end;
+    private Color color;
+    private float widthStroke;
+    private boolean isFill;
+    private ObjectDraw currentObjectDraw;
+    private boolean isDrag = false;
+    private boolean isDraw = false;
+
+    /**
+     * Creates new form DrawingPanel
+     */
+    public DrawingPanel() {
+        initComponents();
+        objectDraws = new ArrayList<>();
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                setStart(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                setEnd(e);
+            }
+
+        });
+        this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                setDrag(e);
+            }
+        });
+    }
+
+    public DrawingPanel(ArrayList<ObjectDraw> objectDraw) {
+        this.objectDraws = objectDraw;
+    }
+
+    public static void setEnumRope(EnumRope enumRope) {
+        DrawingPanel.enumRope = enumRope;
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.   );   
+        Graphics2D g2d = (Graphics2D) g;
+
+        drawGraphics(g2d);
+
+        repaint();
+    }
+
+    public void drawGraphics(Graphics2D g2d) {
+
+        color = ColoursPanel.getCurrentColor();
+        isFill = ShapesPanel.isIsFill();
+        widthStroke = SizePanel.getWidthStroke();
+
+        switch (enumRope) {
+            case LINE:
+                currentObjectDraw = new Line(start, end, color, widthStroke);
+                break;
+            case CURVE:
+                break;
+
+            case OVAL:
+                currentObjectDraw = new Oval(start, end, color, widthStroke, isFill);
+                break;
+
+            case RECT:
+                currentObjectDraw = new Rectangle(start, end, color, widthStroke, isFill);
+                break;
+
+            case RAHIMBUS:
+                break;
+
+            case TRIANGLE:
+                currentObjectDraw = new Triangle(start, end, color, widthStroke, isFill);
+                break;
+
+            case STAR:
+                break;
+
+            case HEART:
+                break;
+
+            case BAHAI:
+                break;
+
+            case PENCIL:
+                break;
+
+        }
+
+        objectDraws.forEach((obj) -> {
+            obj.Drawing(g2d);
+        });
+        if (isDrag) {
+            currentObjectDraw.Drawing(g2d);
+        }
+
+        if (isDraw) {
+            objectDraws.add(currentObjectDraw);
+        }
+    }
+
+    public BufferedImage createImage(JPanel panel) {
+        int w = panel.getWidth();
+        int h = panel.getHeight();
+        BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = bi.createGraphics();
+        panel.print(g2d);
+        return bi;
+    }
+
+    public void setStart(MouseEvent e) {
+        start = new Point(e.getX(), e.getY());
+        isDraw = false;
+    }
+
+    public void setEnd(MouseEvent e) {
+        end = new Point(e.getX(), e.getY());
+        isDraw = true;
+        isDrag = false;
+    }
+
+    public void setDrag(MouseEvent e) {
+        end = new Point(e.getX(), e.getY());
+        isDrag = true;
+        repaint();
+    }
+
 }

@@ -404,6 +404,8 @@ public final class ColoursPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables
 
+    private static Color currentColor;
+    
     public ColoursPanel() {
         initComponents();
         initColorButton();
@@ -449,6 +451,11 @@ public final class ColoursPanel extends javax.swing.JPanel {
     }
 
     public void setCurrentColor(Color color) {
+        currentColor = color;
         currentColorButton.setBackground(color);
+    }
+    
+    public static Color getCurrentColor (){
+        return currentColor;
     }
 }

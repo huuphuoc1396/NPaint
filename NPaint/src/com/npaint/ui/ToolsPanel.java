@@ -5,6 +5,8 @@
  */
 package com.npaint.ui;
 
+import com.npaint.model.EnumRope;
+
 /**
  *
  * @author Huu Phuoc
@@ -36,6 +38,12 @@ public class ToolsPanel extends javax.swing.JPanel {
         toolsLabel = new javax.swing.JLabel();
 
         pencilButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/pencil_icon.png"))); // NOI18N
+        pencilButton.setToolTipText("Pencil");
+        pencilButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pencilButtonActionPerformed(evt);
+            }
+        });
 
         rubberButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/rubber_icon.png"))); // NOI18N
 
@@ -85,6 +93,10 @@ public class ToolsPanel extends javax.swing.JPanel {
                 .addComponent(toolsLabel))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void pencilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pencilButtonActionPerformed
+        DrawingPanel.setEnumRope(EnumRope.PENCIL);
+    }//GEN-LAST:event_pencilButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
