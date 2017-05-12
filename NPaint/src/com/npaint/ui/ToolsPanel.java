@@ -5,7 +5,7 @@
  */
 package com.npaint.ui;
 
-import com.npaint.model.EnumRope;
+import com.npaint.model.shapes.EnumRope;
 
 /**
  *
@@ -95,7 +95,8 @@ public class ToolsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pencilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pencilButtonActionPerformed
-        DrawingPanel.setEnumRope(EnumRope.PENCIL);
+        DrawingPanel.getDrawingPanel().figures = EnumRope.PENCIL;
+        DrawingPanel.getDrawingPanel().redraw();
     }//GEN-LAST:event_pencilButtonActionPerformed
 
 

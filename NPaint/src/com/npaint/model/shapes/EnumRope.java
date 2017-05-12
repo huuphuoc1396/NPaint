@@ -1,0 +1,13 @@
+package com.npaint.model.shapes;
+
+/**
+ *
+ * @author Coder ACJHP
+ */
+
+public enum EnumRope {
+
+    RECT, SELECTION, LINE, OVAL, PENCIL, TRIANGLE, ERASER, TEXT, RANDOM, CURVE, DASHED,
+    GRADIENT, ZOOMIN, ZOOMOUT, PASTE, DOIT, GUIDELINES, AUTOFILLED, COLORPICKER, STAR,
+    CROP, COPY, HEART, RAHIMBUS, BAHAI, HITME, NULL;
+}

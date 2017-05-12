@@ -5,8 +5,6 @@
  */
 package com.npaint.ui;
 
-import com.npaint.model.EnumRope;
-
 /**
  *
  * @author Huu Phuoc
@@ -181,11 +179,11 @@ public class ShapesPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fillCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillCheckBoxActionPerformed
-        isFill = fillCheckBox.isSelected();
+
     }//GEN-LAST:event_fillCheckBoxActionPerformed
 
     private void lineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lineButtonActionPerformed
-        DrawingPanel.setEnumRope(EnumRope.LINE);
+
     }//GEN-LAST:event_lineButtonActionPerformed
 
     private void curveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_curveButtonActionPerformed
@@ -193,11 +191,11 @@ public class ShapesPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_curveButtonActionPerformed
 
     private void ovalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ovalButtonActionPerformed
-        DrawingPanel.setEnumRope(EnumRope.OVAL);
+
     }//GEN-LAST:event_ovalButtonActionPerformed
 
     private void rectangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rectangleButtonActionPerformed
-        DrawingPanel.setEnumRope(EnumRope.RECT);
+
     }//GEN-LAST:event_rectangleButtonActionPerformed
 
     private void rahimbusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rahimbusButtonActionPerformed
@@ -205,7 +203,7 @@ public class ShapesPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_rahimbusButtonActionPerformed
 
     private void triangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_triangleButtonActionPerformed
-        DrawingPanel.setEnumRope(EnumRope.TRIANGLE);
+
     }//GEN-LAST:event_triangleButtonActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
