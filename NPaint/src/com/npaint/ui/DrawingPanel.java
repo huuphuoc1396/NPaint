@@ -1430,16 +1430,22 @@ public final class DrawingPanel extends javax.swing.JPanel {
             if (null != figures) {
                 switch (figures) {
                     case OVAL:
-                        addEllipse(ellipse2d);
-                        ellipse2d = null;
+                        if (ellipse2d != null) {
+                            addEllipse(ellipse2d);
+                            ellipse2d = null;
+                        }
                         break;
                     case RECT:
-                        addRectangle(rectangle);
-                        rectangle = null;
+                        if (rectangle != null) {
+                            addRectangle(rectangle);
+                            rectangle = null;
+                        }
                         break;
                     case LINE:
-                        addLine(line2d);
-                        line2d = null;
+                        if (line2d != null) {
+                            addLine(line2d);
+                            line2d = null;
+                        }
                         break;
                     case CURVE:
                         switch (pressNo) {
@@ -1471,14 +1477,21 @@ public final class DrawingPanel extends javax.swing.JPanel {
                         }
                         break;
                     case TRIANGLE:
-                        addTriangle(triangle);
-                        triangle = null;
+                        if (triangle != null) {
+                            addTriangle(triangle);
+                            triangle = null;
+                        }
                         break;
                     case STAR:
-                        addStar(star);
-                        star = null;
+                        if (star != null) {
+                            addStar(star);
+                            star = null;
+                        }
                         break;
                     case COPY:
+                        if (movedRectangle == null) {
+                            break;
+                        }
                         if (movedRectangle.x < 0 && movedRectangle.y < 0) {
                             movedRectangle.setLocation(0, 0);
                         } else if (movedRectangle.getWidth() > AREA_WIDTH && movedRectangle.getHeight() > AREA_HEIGHT) {
@@ -1489,6 +1502,9 @@ public final class DrawingPanel extends javax.swing.JPanel {
                         }
                         break;
                     case CROP:
+                        if (movedRectangle == null) {
+                            break;
+                        }
                         if (movedRectangle.x < 0 && movedRectangle.y < 0) {
                             movedRectangle.setLocation(0, 0);
                         } else if (movedRectangle.getWidth() > AREA_WIDTH && movedRectangle.getHeight() > AREA_HEIGHT) {
@@ -1502,16 +1518,22 @@ public final class DrawingPanel extends javax.swing.JPanel {
                         repaint();
                         break;
                     case HEART:
-                        addHeart(heart);
-                        heart.clear();
+                        if (heart != null) {
+                            addHeart(heart);
+                            heart.clear();
+                        }
                         break;
                     case RAHIMBUS:
-                        addRegularPolygon(rahimbus);
-                        rahimbus = null;
+                        if (rahimbus != null) {
+                            addRegularPolygon(rahimbus);
+                            rahimbus = null;
+                        }
                         break;
                     case BAHAI:
-                        addBahai(bahai);
-                        bahai = null;
+                        if (bahai != null) {
+                            addBahai(bahai);
+                            bahai = null;
+                        }
                         break;
                     default:
                         repaint();

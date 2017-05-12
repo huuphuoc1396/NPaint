@@ -5,6 +5,7 @@
  */
 package com.npaint.ui;
 
+import com.npaint.model.shapes.EnumRope;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,6 +22,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         this.setIconImage(new ImageIcon(getClass().getResource("/com/npaint/icon/npaint_main_icon.png")).getImage());
         initComponents();
+        drawingPanel.figures = EnumRope.PENCIL;
     }
 
     /**
@@ -34,7 +36,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         drawingScrollPane = new javax.swing.JScrollPane();
         panel = new javax.swing.JPanel();
-        drawingPanel1 = new com.npaint.ui.DrawingPanel();
+        drawingPanel = new com.npaint.ui.DrawingPanel();
         homeScrollPane = new javax.swing.JScrollPane();
         homePanel = new com.npaint.ui.HomePanel();
         menuBar = new com.npaint.ui.MenuBar();
@@ -50,14 +52,14 @@ public class MainFrame extends javax.swing.JFrame {
         panel.setMaximumSize(new java.awt.Dimension(1280, 720));
         panel.setPreferredSize(new java.awt.Dimension(1280, 720));
 
-        javax.swing.GroupLayout drawingPanel1Layout = new javax.swing.GroupLayout(drawingPanel1);
-        drawingPanel1.setLayout(drawingPanel1Layout);
-        drawingPanel1Layout.setHorizontalGroup(
-            drawingPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout drawingPanelLayout = new javax.swing.GroupLayout(drawingPanel);
+        drawingPanel.setLayout(drawingPanelLayout);
+        drawingPanelLayout.setHorizontalGroup(
+            drawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1280, Short.MAX_VALUE)
         );
-        drawingPanel1Layout.setVerticalGroup(
-            drawingPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        drawingPanelLayout.setVerticalGroup(
+            drawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 720, Short.MAX_VALUE)
         );
 
@@ -66,13 +68,13 @@ public class MainFrame extends javax.swing.JFrame {
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addComponent(drawingPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(drawingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addComponent(drawingPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(drawingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -160,7 +162,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.npaint.ui.DrawingPanel drawingPanel1;
+    private com.npaint.ui.DrawingPanel drawingPanel;
     private javax.swing.JScrollPane drawingScrollPane;
     private com.npaint.ui.HomePanel homePanel;
     private javax.swing.JScrollPane homeScrollPane;
