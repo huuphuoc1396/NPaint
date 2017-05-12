@@ -32,7 +32,6 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.font.TextAttribute;
@@ -113,7 +112,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-    private int dist = 6;
+    private final int dist = 6;
     private Graphics2D g2D;
     private int pressNo = 0;
     protected java.awt.Rectangle rect;
@@ -150,8 +149,8 @@ public final class DrawingPanel extends javax.swing.JPanel {
     private Font myFont = new Font("Dialog", Font.PLAIN, 13);
     private final List<List<Point>> points = new ArrayList<>(25);
     private static int AREA_WIDTH = 1280, AREA_HEIGHT = 720;
-    private final static MyObserver observer = new MyObserver();
-    private int thickness = 3, oldX, oldY, currentX, currentY, X, Y;
+    private final static MyObserver OBSERVER = new MyObserver();
+    private int thickness = 1, oldX, oldY, currentX, currentY, X, Y;
     protected final MyMouseListener mouseListener = new MyMouseListener();
     private final SizedStack<BufferedImage> undoStack = new SizedStack<>(12);
     private final Color selectionTrans = UIManager.getColor("List.selectionBackground");
@@ -206,8 +205,8 @@ public final class DrawingPanel extends javax.swing.JPanel {
         setVisible(true);
     }
 
-    public void setStroke(JSlider slider) {
-        this.thickness = slider.getValue();
+    public void setStroke(int value) {
+        this.thickness = value;
         setBasic();
     }
 
@@ -229,7 +228,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
         g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_LCD_CONTRAST, 100);
-        g2d.drawImage(image, 0, 0, observer);
+        g2d.drawImage(image, 0, 0, OBSERVER);
 
         setImage(scaledImage);
     }
@@ -277,7 +276,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 ImageIO.write(mergedImage, "jpg", new File(System.getProperty("user.home") + File.separator + "MergedImage.jpg"));
                 Notifyuser("<html>" + "Saved at : " + System.getProperty("user.home") + File.separator + "<br>" + "Desktop\\" + "MergedImage.jpg" + "</html>");
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("ERROR: " + e.getMessage());
             }
 
         }
@@ -306,7 +305,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 image.getWidth(), image.getHeight(),
                 BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = newImage.createGraphics();
-        g.drawImage(image, 0, 0, observer);
+        g.drawImage(image, 0, 0, OBSERVER);
         g.dispose();
         return newImage;
     }
@@ -356,7 +355,8 @@ public final class DrawingPanel extends javax.swing.JPanel {
         Kernel kernel = new Kernel(3, 3, new float[]{1f / 9f, 1f / 9f, 1f / 9f,
             1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f});
         BufferedImageOp op = new ConvolveOp(kernel);
-        return image = op.filter(image, null);
+        image = op.filter(image, null);
+        return image;
     }
 
 //------------------EDIT COLORS & STROKES-----------------------------------
@@ -414,15 +414,10 @@ public final class DrawingPanel extends javax.swing.JPanel {
     }
 //----------FOR CHOOSING COLOR FROM COLOR CHOOSER
 
-    public void ChooseColor() {
+    public void chooseColor(Color color) {
         isRandomColor = false;
         isGredientColor = false;
-        Color color = JColorChooser.showDialog(this, "Choose Your Color", Color.BLACK);
-        if (color != null) {
-            currentColor = color;
-        } else {
-            currentColor = Color.BLACK;
-        }
+        currentColor = color;
     }
 
     public void setRandomColor() {
@@ -491,6 +486,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     }
 
 //------------------MASTER DRAWING METHOD----------------------
+    @Override
     public void update(Graphics g) {
         paint(g);
     }
@@ -540,7 +536,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_LCD_CONTRAST, 100);
         if (image != null) {
-            g2d.drawImage(image, 0, 0, AREA_WIDTH, AREA_HEIGHT, observer);
+            g2d.drawImage(image, 0, 0, AREA_WIDTH, AREA_HEIGHT, OBSERVER);
         }
 
         if (basicStroke != null || rectangle != null || movedRectangle != null || triangle != null
@@ -597,46 +593,45 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 g2d.fill(ErasRect);
 
             } else if (figures == EnumRope.CURVE) {
-                if (pressNo == 1) {
-                    g2d.setColor(Color.black);
-                    g2d.setStroke(stroke);
-
-                    line2D = new Line2D.Float(x1, y1, x4cur, y4cur);
-                    g2d.draw(line2D);
-
-                    line2D = new Line2D.Float(x1, y1, x4new, y4new);
-                    g2d.draw(line2D);
-
-                    x4cur = x4new;
-                    y4cur = y4new;
-                } else if (pressNo == 2) {
-                    g2d.setColor(Color.black);
-                    g2d.setStroke(stroke);
-
-                    if (dragFlag1 != -1) {
-                        quadCurve = new QuadCurve2D.Float(x1, y1, xc1cur, yc1cur, x4new, y4new);
+                switch (pressNo) {
+                    case 1:
+                        g2d.setColor(Color.black);
+                        g2d.setStroke(stroke);
+                        line2D = new Line2D.Float(x1, y1, x4cur, y4cur);
+                        g2d.draw(line2D);
+                        line2D = new Line2D.Float(x1, y1, x4new, y4new);
+                        g2d.draw(line2D);
+                        x4cur = x4new;
+                        y4cur = y4new;
+                        break;
+                    case 2:
+                        g2d.setColor(Color.black);
+                        g2d.setStroke(stroke);
+                        if (dragFlag1 != -1) {
+                            quadCurve = new QuadCurve2D.Float(x1, y1, xc1cur, yc1cur, x4new, y4new);
+                            g2d.draw(quadCurve);
+                        }
+                        dragFlag1++; // Reset the drag-flag
+                        quadCurve = new QuadCurve2D.Float(x1, y1, xc1new, yc1new, x4new, y4new);
                         g2d.draw(quadCurve);
-                    }
-                    dragFlag1++; // Reset the drag-flag
-
-                    quadCurve = new QuadCurve2D.Float(x1, y1, xc1new, yc1new, x4new, y4new);
-                    g2d.draw(quadCurve);
-
-                    xc1cur = xc1new;
-                    yc1cur = yc1new;
-                } else if (pressNo == 3) {
-                    g2d.setColor(Color.black);
-                    g2d.setStroke(stroke);
-
-                    if (dragFlag2 != -1) {
-                        cubicCurve = new CubicCurve2D.Float(x1, y1, xc1new, yc1new, xc2cur, yc2cur, x4new, y4new);
+                        xc1cur = xc1new;
+                        yc1cur = yc1new;
+                        break;
+                    case 3:
+                        g2d.setColor(Color.black);
+                        g2d.setStroke(stroke);
+                        if (dragFlag2 != -1) {
+                            cubicCurve = new CubicCurve2D.Float(x1, y1, xc1new, yc1new, xc2cur, yc2cur, x4new, y4new);
+                            g2d.draw(cubicCurve);
+                        }
+                        dragFlag2++;
+                        cubicCurve = new CubicCurve2D.Float(x1, y1, xc1new, yc1new, xc2new, yc2new, x4new, y4new);
                         g2d.draw(cubicCurve);
-                    }
-                    dragFlag2++;
-                    cubicCurve = new CubicCurve2D.Float(x1, y1, xc1new, yc1new, xc2new, yc2new, x4new, y4new);
-                    g2d.draw(cubicCurve);
-                    xc2cur = xc2new;
-                    yc2cur = yc2new;
+                        xc2cur = xc2new;
+                        yc2cur = yc2new;
+                        break;
+                    default:
+                        break;
                 }
                 if (clearFlag) {
 
@@ -670,13 +665,13 @@ public final class DrawingPanel extends javax.swing.JPanel {
             } else if (figures == EnumRope.DOIT && isCopied) {
                 Transferable transferable = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
                 if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.imageFlavor)) {
-                    BufferedImage clippedImage = null;
+                    BufferedImage clippedImage;
                     try {
                         g2d = (Graphics2D) image.getGraphics();
                         clippedImage = (BufferedImage) transferable.getTransferData(DataFlavor.imageFlavor);
-                        g2d.drawImage(clippedImage, label.getLocation().x, label.getLocation().y, label.getWidth(), label.getHeight(), observer);
+                        g2d.drawImage(clippedImage, label.getLocation().x, label.getLocation().y, label.getWidth(), label.getHeight(), OBSERVER);
                     } catch (UnsupportedFlavorException | IOException e) {
-                        e.printStackTrace();
+                        System.out.println("ERROR: " + e.getMessage());
                     }
                     label.setIcon(null);
                     label.setVisible(false);
@@ -731,11 +726,11 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 t.setEditable(true);
                 t.setVisible(true);
             } else if (figures == EnumRope.GUIDELINES) {
-                for (int x = 2; x <= AREA_WIDTH - 2; x += 10) {
-                    for (int y = 2; y <= AREA_HEIGHT - 2; y += 10) {
+                for (int i = 2; i <= AREA_WIDTH - 2; i += 10) {
+                    for (int j = 2; j <= AREA_HEIGHT - 2; j += 10) {
                         g2d.setStroke(new BasicStroke(1));
                         g2d.setColor(Color.GRAY.brighter());
-                        g2d.drawRect(x, y, 10, 10);
+                        g2d.drawRect(i, j, 10, 10);
                     }
                 }
             } else if (figures == EnumRope.HITME) {
@@ -800,14 +795,17 @@ public final class DrawingPanel extends javax.swing.JPanel {
     public static void clearClipBoard() {
         try {
             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new Transferable() {
+                @Override
                 public DataFlavor[] getTransferDataFlavors() {
                     return new DataFlavor[0];
                 }
 
+                @Override
                 public boolean isDataFlavorSupported(DataFlavor flavor) {
                     return false;
                 }
 
+                @Override
                 public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {
                     throw new UnsupportedFlavorException(flavor);
                 }
@@ -827,7 +825,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     private void saveToStack(BufferedImage img2) {
         BufferedImage imageForStack = new BufferedImage(AREA_WIDTH, AREA_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = imageForStack.createGraphics();
-        g2d.drawImage(img2, 0, 0, Color.WHITE, observer);
+        g2d.drawImage(img2, 0, 0, Color.WHITE, OBSERVER);
         undoStack.push(imageForStack);
     }
 
@@ -852,7 +850,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     private BufferedImage copyImage(BufferedImage img) {
         BufferedImage copyOfImage = new BufferedImage(AREA_WIDTH, AREA_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         Graphics g = copyOfImage.createGraphics();
-        g.drawImage(img, 0, 0, AREA_WIDTH, AREA_HEIGHT, observer);
+        g.drawImage(img, 0, 0, AREA_WIDTH, AREA_HEIGHT, OBSERVER);
         return copyOfImage;
     }
 
@@ -862,7 +860,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
             BufferedImage cropedImage = image.getSubimage(movedRectangle.x, movedRectangle.y, movedRectangle.width, movedRectangle.height);
             croppedCopy = new BufferedImage(cropedImage.getWidth(), cropedImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
             Graphics g = croppedCopy.getGraphics();
-            g.drawImage(cropedImage, 0, 0, observer);
+            g.drawImage(cropedImage, 0, 0, OBSERVER);
             setImage(croppedCopy);
             repaint();
         }
@@ -900,14 +898,16 @@ public final class DrawingPanel extends javax.swing.JPanel {
             try {
                 clippedImage = (BufferedImage) transferable.getTransferData(DataFlavor.imageFlavor);
             } catch (UnsupportedFlavorException | IOException e) {
-                e.printStackTrace();
+                System.out.println("ERROR: " + e.getMessage());
             }
             this.add(label);
-            label.setIcon(new ImageIcon(clippedImage));
-            label.setSize(clippedImage.getWidth(), clippedImage.getHeight());
-            label.setVisible(true);
-            figures = EnumRope.PASTE;
-            Notifyuser("Move it via mouse! To paste just double click on screen.");
+            if (clippedImage != null) {
+                label.setIcon(new ImageIcon(clippedImage));
+                label.setSize(clippedImage.getWidth(), clippedImage.getHeight());
+                label.setVisible(true);
+                figures = EnumRope.PASTE;
+                Notifyuser("Move it via mouse! To paste just double click on screen.");
+            }
             return clippedImage;
         }
         Notifyuser("At first u need to copy something!");
@@ -941,7 +941,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
         int srcColor = image.getRGB(x, y);
         boolean[][] hits = new boolean[image.getHeight()][image.getWidth()];
 
-        Queue<Point> queue = new LinkedList<Point>();
+        Queue<Point> queue = new LinkedList<>();
         queue.add(new Point(x, y));
 
         while (!queue.isEmpty()) {
@@ -1009,26 +1009,28 @@ public final class DrawingPanel extends javax.swing.JPanel {
             screenCapture = new Robot().createScreenCapture(screen);
         } catch (AWTException e) {
         }
-        int w = screenCapture.getWidth();
-        int h = screenCapture.getHeight();
-        if (w > AREA_WIDTH && h > AREA_HEIGHT) {
-            w = AREA_WIDTH;
-            h = AREA_HEIGHT;
-            repaint();
+        if (screenCapture != null) {
+            int w = screenCapture.getWidth();
+            int h = screenCapture.getHeight();
+            if (w > AREA_WIDTH && h > AREA_HEIGHT) {
+                w = AREA_WIDTH;
+                h = AREA_HEIGHT;
+                repaint();
+            }
+            g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+            g2D.drawImage(screenCapture, 0, 0, w, h, OBSERVER);
+            g2D.dispose();
         }
-        g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
-        g2D.drawImage(screenCapture, 0, 0, w, h, observer);
-        g2D.dispose();
         repaint();
     }
 
 //--------------ALERT(NOTFYING)----------------------------
     public void Notifyuser(String note) {
-        NotifyMe notifyMe = new NotifyMe();
-        notifyMe.setNotifiyNote(note);
-        notifyMe.setVisible(true);
+        NotifyFrame notifyFrame = new NotifyFrame();
+        notifyFrame.setNotifiyNote(note);
+        notifyFrame.setVisible(true);
         Timer swingTimer = new Timer(3000, (ActionEvent e) -> {
-            notifyMe.setVisible(false);
+            notifyFrame.setVisible(false);
         });
         swingTimer.start();
     }
@@ -1055,7 +1057,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
                     }
 
                     g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
-                    g2D.drawImage(newImage, 0, 0, w, h, observer);
+                    g2D.drawImage(newImage, 0, 0, w, h, OBSERVER);
                     g2D.dispose();
                     repaint();
                 } else {
@@ -1089,7 +1091,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
                     String type = path.substring(path.length() - 3);
                     if (type.equalsIgnoreCase("jpg")) {
                         BufferedImage convertedImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
-                        convertedImage.createGraphics().drawImage(image, 0, 0, Color.WHITE, observer);
+                        convertedImage.createGraphics().drawImage(image, 0, 0, Color.WHITE, OBSERVER);
                         ImageIO.write(convertedImage, type, new File(path));
                     } else {
                         ImageIO.write(image, type, new File(path));
@@ -1116,7 +1118,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
             if (pageIndex != 0) {
                 return NO_SUCH_PAGE;
             }
-            graphics.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), observer);
+            graphics.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), OBSERVER);
             return PAGE_EXISTS;
         });
         try {
@@ -1265,30 +1267,36 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            List<Point> newShape = new ArrayList<>(25);
-            newShape.add(e.getPoint());
-            points.add(newShape);
+            List<Point> newShapes = new ArrayList<>(25);
+            newShapes.add(e.getPoint());
+            points.add(newShapes);
 
             oldX = e.getX();
             oldY = e.getY();
             repaint();
 
 //---------------CUARDIC CURVE----------------------------
-            if (pressNo == 0) {
-                pressNo++;
-                x1 = x4cur = e.getX();
-                y1 = y4cur = e.getY();
-                repaint();
-            } else if (pressNo == 1) {
-                pressNo++;
-                xc1cur = e.getX();
-                yc1cur = e.getY();
-                repaint();
-            } else if (pressNo == 2) {
-                pressNo++;
-                xc2cur = e.getX();
-                yc2cur = e.getY();
-                repaint();
+            switch (pressNo) {
+                case 0:
+                    pressNo++;
+                    x1 = x4cur = e.getX();
+                    y1 = y4cur = e.getY();
+                    repaint();
+                    break;
+                case 1:
+                    pressNo++;
+                    xc1cur = e.getX();
+                    yc1cur = e.getY();
+                    repaint();
+                    break;
+                case 2:
+                    pressNo++;
+                    xc2cur = e.getX();
+                    yc2cur = e.getY();
+                    repaint();
+                    break;
+                default:
+                    break;
             }
 
 //-------------------TEXT RECTANGLE-----------------------
@@ -1383,18 +1391,24 @@ public final class DrawingPanel extends javax.swing.JPanel {
             label.setLocation(X, Y);
             label.repaint();
 //----------------------------CUADRIC CURVE------------------------
-            if (pressNo == 1) {
-                x4new = e.getX();
-                y4new = e.getY();
-                repaint();
-            } else if (pressNo == 2) {
-                xc1new = e.getX();
-                yc1new = e.getY();
-                repaint();
-            } else if (pressNo == 3) {
-                xc2new = e.getX();
-                yc2new = e.getY();
-                repaint();
+            switch (pressNo) {
+                case 1:
+                    x4new = e.getX();
+                    y4new = e.getY();
+                    repaint();
+                    break;
+                case 2:
+                    xc1new = e.getX();
+                    yc1new = e.getY();
+                    repaint();
+                    break;
+                case 3:
+                    xc2new = e.getX();
+                    yc2new = e.getY();
+                    repaint();
+                    break;
+                default:
+                    break;
             }
 
 //--------WE NEED ADD THIS TWO SHAPE HERE BECAUSE SHAPE DARWING WITH MOUSEDRAG !
@@ -1412,7 +1426,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
 //----------------GETTING RELEASED COORDINATE TO DRAW LINE-------------------------
         @Override
         public void mouseReleased(MouseEvent e) {
-            
+
             if (null != figures) {
                 switch (figures) {
                     case OVAL:
@@ -1428,22 +1442,28 @@ public final class DrawingPanel extends javax.swing.JPanel {
                         line2d = null;
                         break;
                     case CURVE:
-                        if (pressNo == 1) {
-                            x4new = e.getX();
-                            y4new = e.getY();
-                            repaint();
-                        } else if (pressNo == 2) {
-                            xc1new = e.getX();
-                            yc1new = e.getY();
-                            repaint();
-                        } else if (pressNo == 3) {
-                            xc2new = e.getX();
-                            yc2new = e.getY();
-                            repaint();
-                            pressNo = 0;
-                            dragFlag1 = -1;
-                            dragFlag2 = -1;
-                            clearFlag = true;
+                        switch (pressNo) {
+                            case 1:
+                                x4new = e.getX();
+                                y4new = e.getY();
+                                repaint();
+                                break;
+                            case 2:
+                                xc1new = e.getX();
+                                yc1new = e.getY();
+                                repaint();
+                                break;
+                            case 3:
+                                xc2new = e.getX();
+                                yc2new = e.getY();
+                                repaint();
+                                pressNo = 0;
+                                dragFlag1 = -1;
+                                dragFlag2 = -1;
+                                clearFlag = true;
+                                break;
+                            default:
+                                break;
                         }
                         if (cubicCurve != null) {
                             addCurve(cubicCurve);

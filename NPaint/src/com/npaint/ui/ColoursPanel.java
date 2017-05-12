@@ -446,13 +446,14 @@ public final class ColoursPanel extends javax.swing.JPanel {
         Color brushColor = null;
         Color colorSelection = JColorChooser.showDialog(this, "Change Color", brushColor);
         if (colorSelection != null) {
-            currentColorButton.setBackground(colorSelection);
+            setCurrentColor(colorSelection);
         }
     }
 
     public void setCurrentColor(Color color) {
         currentColor = color;
         currentColorButton.setBackground(color);
+        DrawingPanel.getDrawingPanel().chooseColor(color);
     }
 
     public static Color getCurrentColor() {

@@ -59,27 +59,29 @@ public class SizePanel extends javax.swing.JPanel {
     private void sizeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeComboBoxActionPerformed
         switch (sizeComboBox.getSelectedIndex()) {
             case 0:
-                widthStroke = 1.5F;
+                widthStroke = 1;
                 break;
             case 1:
-                widthStroke = 2.5F;
+                widthStroke = 2;
                 break;
             case 2:
-                widthStroke = 3.5F;
+                widthStroke = 4;
                 break;
             case 3:
-                widthStroke = 4.5F;
+                widthStroke = 6;
                 break;
             case 4:
-                widthStroke = 5.5F;
+                widthStroke = 8;
                 break;
             case 5:
-                widthStroke = 6.5F;
+                widthStroke = 16;
                 break;
             case 6:
-                widthStroke = 7.5F;
+                widthStroke = 32;
                 break;
         }
+
+        DrawingPanel.getDrawingPanel().setStroke(widthStroke);
     }//GEN-LAST:event_sizeComboBoxActionPerformed
 
 
@@ -88,9 +90,9 @@ public class SizePanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> sizeComboBox;
     // End of variables declaration//GEN-END:variables
 
-    private static float widthStroke = 1.5F;
+    private static int widthStroke = 1;
 
-    public static float getWidthStroke() {
+    public static int getWidthStroke() {
         return widthStroke;
     }
 }

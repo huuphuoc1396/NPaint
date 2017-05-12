@@ -15,8 +15,8 @@ public class RegularPolygon extends Polygon {
 
     public RegularPolygon(int x, int y, int r, int vertexCount, double startAngle) {
         super(getXCoordinates(x, y, r, vertexCount, startAngle),
-                 getYCoordinates(x, y, r, vertexCount, startAngle),
-                 vertexCount);
+                getYCoordinates(x, y, r, vertexCount, startAngle),
+                vertexCount);
     }
 
     protected static int[] getXCoordinates(int x, int y, int r, int vertexCount, double startAngle) {

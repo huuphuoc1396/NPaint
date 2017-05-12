@@ -11,7 +11,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ButtonGroup;
@@ -33,16 +32,19 @@ public class ImageProps extends JFrame {
     private static final long serialVersionUID = 1L;
     protected JPanel contentPane;
     protected JPanel panel_1, panel;
-    private JLabel lblImageSize, lblAspect, lblCreationDate, lblTransparency;
+    private final JLabel lblImageSize;
+    private final JLabel lblAspect;
+    private final JLabel lblCreationDate;
+    private final JLabel lblTransparency;
     protected JRadioButton blackWhite, colored;
     protected JLabel lblsizeResult, lblAspectResult, lblCreationResult, lblTransparencyResult;
     private JRadioButton fivePointFour;
     private JRadioButton fourPointThree;
     private JRadioButton sixteenPointNine;
     private double AspectRatio = 0.0;
-    private JLabel lblX;
-    private JLabel lblWideScreen;
-    private JLabel lblOldScreens;
+    private final JLabel lblX;
+    private final JLabel lblWideScreen;
+    private final JLabel lblOldScreens;
 
     /**
      * Create the frame.
@@ -190,11 +192,9 @@ public class ImageProps extends JFrame {
         fourPointThree = new JRadioButton("4:3");
         fourPointThree.setPreferredSize(new Dimension(70, 23));
         fourPointThree.setAlignmentX(Component.CENTER_ALIGNMENT);
-        fourPointThree.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent e) {
-                if (fourPointThree.isSelected()) {
-                    AspectRatio = 1.3;
-                }
+        fourPointThree.addItemListener((ItemEvent e) -> {
+            if (fourPointThree.isSelected()) {
+                AspectRatio = 1.3;
             }
         });
         fourPointThree.setAutoscrolls(true);
@@ -204,11 +204,9 @@ public class ImageProps extends JFrame {
         sixteenPointNine = new JRadioButton("16:9");
         sixteenPointNine.setPreferredSize(new Dimension(70, 23));
         sixteenPointNine.setAlignmentX(Component.CENTER_ALIGNMENT);
-        sixteenPointNine.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent e) {
-                if (sixteenPointNine.isSelected()) {
-                    AspectRatio = 1.7;
-                }
+        sixteenPointNine.addItemListener((ItemEvent e) -> {
+            if (sixteenPointNine.isSelected()) {
+                AspectRatio = 1.7;
             }
         });
 
@@ -216,11 +214,9 @@ public class ImageProps extends JFrame {
         fivePointFour.setPreferredSize(new Dimension(70, 23));
         fivePointFour.setMaximumSize(new Dimension(60, 23));
         fivePointFour.setAlignmentX(Component.CENTER_ALIGNMENT);
-        fivePointFour.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent arg0) {
-                if (fivePointFour.isSelected()) {
-                    AspectRatio = 1.2;
-                }
+        fivePointFour.addItemListener((ItemEvent arg0) -> {
+            if (fivePointFour.isSelected()) {
+                AspectRatio = 1.2;
             }
         });
         fivePointFour.setAutoscrolls(true);
@@ -258,7 +254,7 @@ public class ImageProps extends JFrame {
 
     public void setImagePanelImage(BufferedImage image) {
         BufferedImage scaledImage = new BufferedImage(258, 150,
-                 BufferedImage.TYPE_INT_ARGB);
+                BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = scaledImage.createGraphics();
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BILINEAR);

@@ -25,7 +25,7 @@ import javax.swing.SwingUtilities;
  *
  * @author Coder ACJHP
  */
-public class NotifyMe extends JFrame {
+public class NotifyFrame extends JFrame {
 
     /**
      *
@@ -34,7 +34,7 @@ public class NotifyMe extends JFrame {
 
     private JLabel label;
 
-    public NotifyMe() {
+    public NotifyFrame() {
         super("NotifyMe");
         setLayout(new GridBagLayout());
         addComponentListener(new ComponentAdapter() {
@@ -77,7 +77,7 @@ public class NotifyMe extends JFrame {
         }
 
         SwingUtilities.invokeLater(() -> {
-            NotifyMe sw = new NotifyMe();
+            NotifyFrame sw = new NotifyFrame();
 
             if (isTranslucencySupported) {
                 sw.setOpacity(0.7f);

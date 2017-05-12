@@ -181,7 +181,7 @@ public class ShapesPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fillCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillCheckBoxActionPerformed
-        if(fillCheckBox.isSelected()){
+        if (fillCheckBox.isSelected()) {
             DrawingPanel.getDrawingPanel().setAllFilled();
         } else {
             DrawingPanel.getDrawingPanel().setUnFilled();

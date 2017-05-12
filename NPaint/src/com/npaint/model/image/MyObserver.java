@@ -6,6 +6,7 @@ import java.awt.image.ImageObserver;
 
 public class MyObserver implements ImageObserver {
 
+    @Override
     public boolean imageUpdate(Image image, int flags, int x, int y,
             int width, int height) {
 
