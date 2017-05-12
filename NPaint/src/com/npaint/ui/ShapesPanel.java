@@ -5,6 +5,8 @@
  */
 package com.npaint.ui;
 
+import com.npaint.model.shapes.EnumRope;
+
 /**
  *
  * @author Huu Phuoc
@@ -179,23 +181,28 @@ public class ShapesPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fillCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillCheckBoxActionPerformed
-
+        if(fillCheckBox.isSelected()){
+            DrawingPanel.getDrawingPanel().setAllFilled();
+        } else {
+            DrawingPanel.getDrawingPanel().setUnFilled();
+        }
     }//GEN-LAST:event_fillCheckBoxActionPerformed
 
     private void lineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lineButtonActionPerformed
-
+        DrawingPanel.getDrawingPanel().figures = EnumRope.LINE;
     }//GEN-LAST:event_lineButtonActionPerformed
 
     private void curveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_curveButtonActionPerformed
-        // TODO add your handling code here:
+        DrawingPanel.getDrawingPanel().figures = EnumRope.CURVE;
+        DrawingPanel.getDrawingPanel().redraw();
     }//GEN-LAST:event_curveButtonActionPerformed
 
     private void ovalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ovalButtonActionPerformed
-
+        DrawingPanel.getDrawingPanel().figures = EnumRope.OVAL;
     }//GEN-LAST:event_ovalButtonActionPerformed
 
     private void rectangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rectangleButtonActionPerformed
-
+        DrawingPanel.getDrawingPanel().figures = EnumRope.RECT;
     }//GEN-LAST:event_rectangleButtonActionPerformed
 
     private void rahimbusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rahimbusButtonActionPerformed
@@ -203,23 +210,23 @@ public class ShapesPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_rahimbusButtonActionPerformed
 
     private void triangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_triangleButtonActionPerformed
-
+        DrawingPanel.getDrawingPanel().figures = EnumRope.TRIANGLE;
     }//GEN-LAST:event_triangleButtonActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        // TODO add your handling code here:
+        DrawingPanel.getDrawingPanel().figures = EnumRope.STAR;
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void heartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heartButtonActionPerformed
-        // TODO add your handling code here:
+        DrawingPanel.getDrawingPanel().figures = EnumRope.HEART;
     }//GEN-LAST:event_heartButtonActionPerformed
 
     private void bahaiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bahaiButtonActionPerformed
-        // TODO add your handling code here:
+        DrawingPanel.getDrawingPanel().figures = EnumRope.BAHAI;
     }//GEN-LAST:event_bahaiButtonActionPerformed
 
     private void outlineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outlineButtonActionPerformed
-        // TODO add your handling code here:
+        DrawingPanel.getDrawingPanel().figures = EnumRope.RAHIMBUS;
     }//GEN-LAST:event_outlineButtonActionPerformed
 
 

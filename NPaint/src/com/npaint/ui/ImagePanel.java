@@ -5,6 +5,8 @@
  */
 package com.npaint.ui;
 
+import com.npaint.model.shapes.EnumRope;
+
 /**
  *
  * @author Huu Phuoc
@@ -36,12 +38,27 @@ public class ImagePanel extends javax.swing.JPanel {
         selectButton.setText("Select");
         selectButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         selectButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        selectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectButtonActionPerformed(evt);
+            }
+        });
 
         cropButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/crop_icon.png"))); // NOI18N
         cropButton.setText("Crop");
+        cropButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cropButtonActionPerformed(evt);
+            }
+        });
 
         rotateButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/rotate_icon.png"))); // NOI18N
         rotateButton.setText("Rotate");
+        rotateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rotateButtonActionPerformed(evt);
+            }
+        });
 
         imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         imageLabel.setText("Image");
@@ -72,6 +89,18 @@ public class ImagePanel extends javax.swing.JPanel {
                 .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
+        DrawingPanel.getDrawingPanel().figures = EnumRope.SELECTION;
+    }//GEN-LAST:event_selectButtonActionPerformed
+
+    private void cropButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cropButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cropButtonActionPerformed
+
+    private void rotateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rotateButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rotateButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

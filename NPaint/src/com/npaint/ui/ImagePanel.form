@@ -54,6 +54,9 @@
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="cropButton">
       <Properties>
@@ -62,6 +65,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Crop"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cropButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="rotateButton">
       <Properties>
@@ -70,6 +76,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Rotate"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rotateButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="imageLabel">
       <Properties>

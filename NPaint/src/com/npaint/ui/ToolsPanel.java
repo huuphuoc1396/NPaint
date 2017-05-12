@@ -46,14 +46,39 @@ public class ToolsPanel extends javax.swing.JPanel {
         });
 
         rubberButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/rubber_icon.png"))); // NOI18N
+        rubberButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rubberButtonActionPerformed(evt);
+            }
+        });
 
         fillButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/fill_colour_icon.png"))); // NOI18N
+        fillButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fillButtonActionPerformed(evt);
+            }
+        });
 
         airBrushButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/airbrush_icon.png"))); // NOI18N
+        airBrushButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                airBrushButtonActionPerformed(evt);
+            }
+        });
 
         textButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/text_icon.png"))); // NOI18N
+        textButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textButtonActionPerformed(evt);
+            }
+        });
 
         pickButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/pick_color_icon.png"))); // NOI18N
+        pickButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pickButtonActionPerformed(evt);
+            }
+        });
 
         toolsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         toolsLabel.setText("Tools");
@@ -98,6 +123,28 @@ public class ToolsPanel extends javax.swing.JPanel {
         DrawingPanel.getDrawingPanel().figures = EnumRope.PENCIL;
         DrawingPanel.getDrawingPanel().redraw();
     }//GEN-LAST:event_pencilButtonActionPerformed
+
+    private void fillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillButtonActionPerformed
+        DrawingPanel.getDrawingPanel().figures = EnumRope.AUTOFILLED;
+    }//GEN-LAST:event_fillButtonActionPerformed
+
+    private void textButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textButtonActionPerformed
+        DrawingPanel.getDrawingPanel().figures = EnumRope.TEXT;
+        DrawingPanel.getDrawingPanel().setTextStroke();
+    }//GEN-LAST:event_textButtonActionPerformed
+
+    private void rubberButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rubberButtonActionPerformed
+        DrawingPanel.getDrawingPanel().figures = EnumRope.ERASER;
+        DrawingPanel.getDrawingPanel().repaint();
+    }//GEN-LAST:event_rubberButtonActionPerformed
+
+    private void airBrushButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_airBrushButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_airBrushButtonActionPerformed
+
+    private void pickButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pickButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pickButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

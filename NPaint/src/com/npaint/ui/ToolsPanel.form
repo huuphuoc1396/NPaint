@@ -71,6 +71,9 @@
           <Image iconType="3" name="/com/npaint/icon/rubber_icon.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rubberButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="fillButton">
       <Properties>
@@ -78,6 +81,9 @@
           <Image iconType="3" name="/com/npaint/icon/fill_colour_icon.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fillButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="airBrushButton">
       <Properties>
@@ -85,6 +91,9 @@
           <Image iconType="3" name="/com/npaint/icon/airbrush_icon.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="airBrushButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="textButton">
       <Properties>
@@ -92,6 +101,9 @@
           <Image iconType="3" name="/com/npaint/icon/text_icon.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="pickButton">
       <Properties>
@@ -99,6 +111,9 @@
           <Image iconType="3" name="/com/npaint/icon/pick_color_icon.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pickButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="toolsLabel">
       <Properties>

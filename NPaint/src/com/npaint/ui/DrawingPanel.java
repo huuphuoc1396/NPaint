@@ -170,7 +170,6 @@ public final class DrawingPanel extends javax.swing.JPanel {
         SwingConstants.SOUTH_EAST
     };
     private boolean release;
-    private boolean isMouserRelease;
 
     private static DrawingPanel drawingPanel;
 
@@ -1211,10 +1210,6 @@ public final class DrawingPanel extends javax.swing.JPanel {
         g2D.setStroke(new BasicStroke(tickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 
         g2D.drawLine(oldX, oldY, currentX, currentY);
-        if (isMouserRelease) {
-            System.out.println("release");
-            return;
-        }
         oldX = currentX;
         oldY = currentY;
         repaint();
@@ -1328,7 +1323,6 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 currentColor = new Color(color, true);
             }
 
-            isMouserRelease = false;
         }
 
         @Override
@@ -1504,8 +1498,6 @@ public final class DrawingPanel extends javax.swing.JPanel {
                         break;
                 }
             }
-            
-            isMouserRelease = true;
         }
 
         @Override
