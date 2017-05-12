@@ -206,7 +206,7 @@ public class ShapesPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_rectangleButtonActionPerformed
 
     private void rahimbusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rahimbusButtonActionPerformed
-        // TODO add your handling code here:
+        DrawingPanel.getDrawingPanel().figures = EnumRope.RAHIMBUS;
     }//GEN-LAST:event_rahimbusButtonActionPerformed
 
     private void triangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_triangleButtonActionPerformed
@@ -226,7 +226,7 @@ public class ShapesPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_bahaiButtonActionPerformed
 
     private void outlineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outlineButtonActionPerformed
-        DrawingPanel.getDrawingPanel().figures = EnumRope.RAHIMBUS;
+
     }//GEN-LAST:event_outlineButtonActionPerformed
 
 

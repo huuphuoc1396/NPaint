@@ -492,6 +492,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     }
 
     @Override
+    @SuppressWarnings({"FinalizeCalledExplicitly", "null"})
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
@@ -714,12 +715,12 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 g2d.setPaint(selectionTrans);
                 g2d.draw(rect);
                 for (int i = 0; i < locations.length; i++) {
-                    java.awt.Rectangle rect = getRectangle(x, y, width, height, locations[i]);
+                    java.awt.Rectangle r = getRectangle(x, y, width, height, locations[i]);
                     g2d.setColor(Color.WHITE);
-                    g2d.fillRect(rect.x, rect.y, rect.width - 1, rect.height - 1);
+                    g2d.fillRect(r.x, r.y, r.width - 1, r.height - 1);
                     g2d.setStroke(new BasicStroke(2));
                     g2d.setColor(selectionTrans);
-                    g2d.drawRect(rect.x, rect.y, rect.width - 1, rect.height - 1);
+                    g2d.drawRect(r.x, r.y, r.width - 1, r.height - 1);
                 }
                 t.setForeground(currentColor);
                 t.setBounds(setTextAreaSize());
