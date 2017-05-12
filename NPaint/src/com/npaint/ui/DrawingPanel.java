@@ -1271,8 +1271,8 @@ public final class DrawingPanel extends javax.swing.JPanel {
             newShapes.add(e.getPoint());
             points.add(newShapes);
 
-            oldX = e.getX();
-            oldY = e.getY();
+            currentX = oldX = e.getX();
+            currentY = oldY = e.getY();
             repaint();
 
 //---------------CUARDIC CURVE----------------------------
