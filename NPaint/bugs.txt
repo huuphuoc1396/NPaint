@@ -1,0 +1,13 @@
+﻿--1.	Lỗi khi vẽ các hình đặt biệt, heart, star, bahai, triangle, rahimbus 
+	--> K cố định tâm khi vẽ
+
+--2.	Lỗi thêm Text
+	--> Text k nằm trong khung ban đầu khi release, k nhận enter
+
+--3. 	Rubber
+	--> Xóa từng điểm
+
+--4. 	Rotate, Invert image
+	--> Xoay và lật toàn bộ panel 
+
+--5. 
