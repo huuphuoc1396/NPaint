@@ -120,21 +120,21 @@ public class ToolsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pencilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pencilButtonActionPerformed
-        DrawingPanel.getDrawingPanel().figures = EnumRope.PENCIL;
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.PENCIL);
         DrawingPanel.getDrawingPanel().redraw();
     }//GEN-LAST:event_pencilButtonActionPerformed
 
     private void fillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillButtonActionPerformed
-        DrawingPanel.getDrawingPanel().figures = EnumRope.AUTOFILLED;
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.AUTOFILLED);
     }//GEN-LAST:event_fillButtonActionPerformed
 
     private void textButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textButtonActionPerformed
-        DrawingPanel.getDrawingPanel().figures = EnumRope.TEXT;
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.TEXT);
         DrawingPanel.getDrawingPanel().setTextStroke();
     }//GEN-LAST:event_textButtonActionPerformed
 
     private void rubberButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rubberButtonActionPerformed
-        DrawingPanel.getDrawingPanel().figures = EnumRope.ERASER;
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.ERASER);
         DrawingPanel.getDrawingPanel().repaint();
     }//GEN-LAST:event_rubberButtonActionPerformed
 

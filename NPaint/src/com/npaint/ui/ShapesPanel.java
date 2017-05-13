@@ -189,40 +189,40 @@ public class ShapesPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_fillCheckBoxActionPerformed
 
     private void lineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lineButtonActionPerformed
-        DrawingPanel.getDrawingPanel().figures = EnumRope.LINE;
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.LINE);
     }//GEN-LAST:event_lineButtonActionPerformed
 
     private void curveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_curveButtonActionPerformed
-        DrawingPanel.getDrawingPanel().figures = EnumRope.CURVE;
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.CURVE);
         DrawingPanel.getDrawingPanel().redraw();
     }//GEN-LAST:event_curveButtonActionPerformed
 
     private void ovalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ovalButtonActionPerformed
-        DrawingPanel.getDrawingPanel().figures = EnumRope.OVAL;
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.OVAL);
     }//GEN-LAST:event_ovalButtonActionPerformed
 
     private void rectangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rectangleButtonActionPerformed
-        DrawingPanel.getDrawingPanel().figures = EnumRope.RECT;
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.RECT);
     }//GEN-LAST:event_rectangleButtonActionPerformed
 
     private void rahimbusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rahimbusButtonActionPerformed
-        DrawingPanel.getDrawingPanel().figures = EnumRope.RAHIMBUS;
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.RAHIMBUS);
     }//GEN-LAST:event_rahimbusButtonActionPerformed
 
     private void triangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_triangleButtonActionPerformed
-        DrawingPanel.getDrawingPanel().figures = EnumRope.TRIANGLE;
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.TRIANGLE);
     }//GEN-LAST:event_triangleButtonActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        DrawingPanel.getDrawingPanel().figures = EnumRope.STAR;
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.STAR);
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void heartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heartButtonActionPerformed
-        DrawingPanel.getDrawingPanel().figures = EnumRope.HEART;
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.HEART);
     }//GEN-LAST:event_heartButtonActionPerformed
 
     private void bahaiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bahaiButtonActionPerformed
-        DrawingPanel.getDrawingPanel().figures = EnumRope.BAHAI;
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.BAHAI);
     }//GEN-LAST:event_bahaiButtonActionPerformed
 
     private void outlineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outlineButtonActionPerformed

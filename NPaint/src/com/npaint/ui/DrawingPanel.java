@@ -121,7 +121,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     private int dragFlag1 = -1;
     private int dragFlag2 = -1;
     private final JLabel label;
-    protected EnumRope figures;
+    private EnumRope figures;
     float dashes[] = {5f, 5f};
     private Line2D.Float line2D;
     private double HEART_RADIUS;
@@ -172,6 +172,8 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
     private static DrawingPanel drawingPanel;
 
+    private boolean isMousePressed;
+
     public static DrawingPanel getDrawingPanel() {
         return drawingPanel;
     }
@@ -203,6 +205,10 @@ public final class DrawingPanel extends javax.swing.JPanel {
 //---------------------------------------------------------------        
         image = new BufferedImage(AREA_WIDTH, AREA_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         setVisible(true);
+    }
+
+    public void setFigures(EnumRope figures) {
+        this.figures = figures;
     }
 
     public void setStroke(int value) {
@@ -585,8 +591,10 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 g2d.draw(line2d);
 
             } else if (figures == EnumRope.PENCIL) {
-                g2d.drawLine(oldX, oldY, currentX, currentY);
-                repaint();
+                if (isMousePressed) {
+                    g2d.drawLine(oldX, oldY, currentX, currentY);
+                    repaint();
+                }
 
             } else if (figures == EnumRope.ERASER && ErasRect != null) {
 
@@ -1268,6 +1276,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
         @Override
         public void mousePressed(MouseEvent e) {
+            isMousePressed = true;
             List<Point> newShapes = new ArrayList<>(25);
             newShapes.add(e.getPoint());
             points.add(newShapes);
@@ -1277,27 +1286,29 @@ public final class DrawingPanel extends javax.swing.JPanel {
             repaint();
 
 //---------------CUARDIC CURVE----------------------------
-            switch (pressNo) {
-                case 0:
-                    pressNo++;
-                    x1 = x4cur = e.getX();
-                    y1 = y4cur = e.getY();
-                    repaint();
-                    break;
-                case 1:
-                    pressNo++;
-                    xc1cur = e.getX();
-                    yc1cur = e.getY();
-                    repaint();
-                    break;
-                case 2:
-                    pressNo++;
-                    xc2cur = e.getX();
-                    yc2cur = e.getY();
-                    repaint();
-                    break;
-                default:
-                    break;
+            if (figures == EnumRope.CURVE) {
+                switch (pressNo) {
+                    case 0:
+                        pressNo++;
+                        x1 = x4cur = e.getX();
+                        y1 = y4cur = e.getY();
+                        repaint();
+                        break;
+                    case 1:
+                        pressNo++;
+                        xc1cur = e.getX();
+                        yc1cur = e.getY();
+                        repaint();
+                        break;
+                    case 2:
+                        pressNo++;
+                        xc2cur = e.getX();
+                        yc2cur = e.getY();
+                        repaint();
+                        break;
+                    default:
+                        break;
+                }
             }
 
 //-------------------TEXT RECTANGLE-----------------------
@@ -1353,30 +1364,74 @@ public final class DrawingPanel extends javax.swing.JPanel {
             newShape.add(e.getPoint());
             repaint();
 //--------------------------------------------------------------  
-            heart.Heart(x, y, HEART_RADIUS);
-            repaint();
-            heart.fillHeart(x, y, HEART_RADIUS);
-            repaint();
-            movedRectangle.setBounds(x, y, width, height);
-            repaint();
-            rectangle.setBounds(x, y, width, height);
-            repaint();
-            ellipse2d = new Ellipse2D.Float(x, y, width, height);
-            repaint();
-            line2d = new Line2D.Float(startpoint.x, startpoint.y, currentX, currentY);
-            repaint();
-            ErasRect = new Rectangle2D.Float(currentX, currentY, thickness + 5, thickness + 5);
-            repaint();
-            star = new StarPolygon(currentX, currentY, Math.max(width, height) / 2, Math.max(width, height), 5, Math.PI / 2);
-            repaint();
-            triangle = new RegularPolygon(currentX, currentY, Math.max(width, height) / 2, 3, Math.PI / 6);
-            repaint();
-            rahimbus = new RegularPolygon(x, y, Math.max(width, height), 4, 0);
-            repaint();
-            bahai = new StarPolygon(currentX, currentY, Math.max(width, height) / 2, Math.max(width, height), 9, Math.PI / 2);
-            repaint();
-            rect = new java.awt.Rectangle(x + dist / 2, y + dist / 2, width - dist, height - dist);
-            repaint();
+            switch (figures) {
+                case HEART:
+                    heart.Heart(x, y, HEART_RADIUS);
+                    repaint();
+                    heart.fillHeart(x, y, HEART_RADIUS);
+                    repaint();
+                    break;
+
+                case COPY:
+                    movedRectangle.setBounds(x, y, width, height);
+                    repaint();
+                    break;
+
+                case CROP:
+                    movedRectangle.setBounds(x, y, width, height);
+                    repaint();
+                    break;
+
+                case SELECTION:
+                    movedRectangle.setBounds(x, y, width, height);
+                    repaint();
+                    break;
+
+                case RECT:
+                    rectangle.setBounds(x, y, width, height);
+                    repaint();
+                    break;
+
+                case OVAL:
+                    ellipse2d = new Ellipse2D.Float(x, y, width, height);
+                    repaint();
+                    break;
+
+                case LINE:
+                    line2d = new Line2D.Float(startpoint.x, startpoint.y, currentX, currentY);
+                    repaint();
+                    break;
+
+                case ERASER:
+                    ErasRect = new Rectangle2D.Float(currentX, currentY, thickness + 5, thickness + 5);
+                    repaint();
+                    break;
+
+                case STAR:
+                    star = new StarPolygon(currentX, currentY, Math.max(width, height) / 2, Math.max(width, height), 5, Math.PI / 2);
+                    repaint();
+                    break;
+
+                case TRIANGLE:
+                    triangle = new RegularPolygon(currentX, currentY, Math.max(width, height) / 2, 3, Math.PI / 6);
+                    repaint();
+                    break;
+
+                case RAHIMBUS:
+                    rahimbus = new RegularPolygon(x, y, Math.max(width, height), 4, 0);
+                    repaint();
+                    break;
+
+                case BAHAI:
+                    bahai = new StarPolygon(currentX, currentY, Math.max(width, height) / 2, Math.max(width, height), 9, Math.PI / 2);
+                    repaint();
+                    break;
+
+                case TEXT:
+                    rect = new java.awt.Rectangle(x + dist / 2, y + dist / 2, width - dist, height - dist);
+                    repaint();
+                    break;
+            }
 
             int thisX = label.getLocation().x;
             int thisY = label.getLocation().y;
@@ -1427,7 +1482,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
 //----------------GETTING RELEASED COORDINATE TO DRAW LINE-------------------------
         @Override
         public void mouseReleased(MouseEvent e) {
-
+            isMousePressed = false;
             if (null != figures) {
                 switch (figures) {
                     case OVAL:

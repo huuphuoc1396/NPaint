@@ -54,6 +54,9 @@
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pasteButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="cutButton">
       <Properties>
@@ -62,6 +65,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Cut"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cutButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="copyButton">
       <Properties>
@@ -70,6 +76,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Copy"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="copyButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="clipboardLabel">
       <Properties>

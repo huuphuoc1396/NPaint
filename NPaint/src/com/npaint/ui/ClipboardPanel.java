@@ -36,12 +36,27 @@ public class ClipboardPanel extends javax.swing.JPanel {
         pasteButton.setText("Paste");
         pasteButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pasteButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        pasteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pasteButtonActionPerformed(evt);
+            }
+        });
 
         cutButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/cut_icon.png"))); // NOI18N
         cutButton.setText("Cut");
+        cutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cutButtonActionPerformed(evt);
+            }
+        });
 
         copyButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/copy_icon.png"))); // NOI18N
         copyButton.setText("Copy");
+        copyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                copyButtonActionPerformed(evt);
+            }
+        });
 
         clipboardLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         clipboardLabel.setText("Clipboard");
@@ -72,6 +87,18 @@ public class ClipboardPanel extends javax.swing.JPanel {
                 .addComponent(clipboardLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void pasteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasteButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pasteButtonActionPerformed
+
+    private void cutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cutButtonActionPerformed
+
+    private void copyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_copyButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

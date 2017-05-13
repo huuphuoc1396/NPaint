@@ -22,7 +22,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         this.setIconImage(new ImageIcon(getClass().getResource("/com/npaint/icon/npaint_main_icon.png")).getImage());
         initComponents();
-        drawingPanel.figures = EnumRope.PENCIL;
+        drawingPanel.setFigures(EnumRope.PENCIL);
     }
 
     /**

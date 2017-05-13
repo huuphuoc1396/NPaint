@@ -91,7 +91,7 @@ public class ImagePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
-        DrawingPanel.getDrawingPanel().figures = EnumRope.SELECTION;
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.SELECTION);
     }//GEN-LAST:event_selectButtonActionPerformed
 
     private void cropButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cropButtonActionPerformed
