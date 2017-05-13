@@ -16,7 +16,7 @@ public class HeartShape {
 
     private Path2D base;
     private Shape shape;
-    private ArrayList<Shape> shapes;
+    private ArrayList<Shape> shapes = new ArrayList<>();
 
     public HeartShape() {
         super();

@@ -12,6 +12,7 @@ import com.npaint.model.shapes.EnumRope;
 import com.npaint.model.shapes.HeartShape;
 import com.npaint.model.shapes.RegularPolygon;
 import com.npaint.model.shapes.StarPolygon;
+import com.npaint.model.shapes.Triangle;
 import com.npaint.stack.SizedStack;
 import java.awt.AWTException;
 import java.awt.AlphaComposite;
@@ -138,7 +139,8 @@ public final class DrawingPanel extends javax.swing.JPanel {
     static JTextArea t = new JTextArea();
     private boolean isGredientColor = false;
     private BufferedImage image, scaledImage;
-    private RegularPolygon triangle, rahimbus;
+    private RegularPolygon rahimbus;
+    private Triangle triangle;
     private java.awt.Rectangle rectangle, movedRectangle;
     private final HeartShape heart = new HeartShape();
     protected final ImageProps imageProps = new ImageProps();
@@ -684,9 +686,9 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
             } else if (figures == EnumRope.TRIANGLE && triangle != null) {
                 if (isFilled == true) {
-                    g2d.fill(triangle);
+                    triangle.fillTriangle(g2d);
                 } else {
-                    g2d.drawPolygon(triangle);
+                    triangle.drawTriangle(g2d);
                 }
 
             } else if (figures == EnumRope.HEART && heart != null) {
@@ -1179,12 +1181,12 @@ public final class DrawingPanel extends javax.swing.JPanel {
         repaint();
     }
 
-    public void addTriangle(RegularPolygon poly) {
+    public void addTriangle(Triangle triangle) {
 
         if (isFilled) {
-            g2D.fillPolygon(poly);
+            triangle.fillTriangle(g2D);
         } else {
-            g2D.drawPolygon(poly);
+            triangle.drawTriangle(g2D);
         }
 
         repaint();
@@ -1277,8 +1279,8 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 switch (pressNo) {
                     case 0:
                         pressNo++;
-                        x1 = x4cur = e.getX();
-                        y1 = y4cur = e.getY();
+                        x1 = x4cur = x4new = e.getX();
+                        y1 = y4cur = y4new = e.getY();
                         repaint();
                         break;
                     case 1:
@@ -1340,6 +1342,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
             x = Math.min(startpoint.x, e.getX());
             y = Math.min(startpoint.y, e.getY());
+
             width = Math.abs(startpoint.x - e.getX());
             height = Math.abs(startpoint.y - e.getY());
 
@@ -1353,6 +1356,8 @@ public final class DrawingPanel extends javax.swing.JPanel {
 //--------------------------------------------------------------  
             switch (figures) {
                 case HEART:
+                    x = startpoint.x;
+                    y = startpoint.y;
                     heart.Heart(x, y, HEART_RADIUS);
                     repaint();
                     heart.fillHeart(x, y, HEART_RADIUS);
@@ -1395,22 +1400,31 @@ public final class DrawingPanel extends javax.swing.JPanel {
                     break;
 
                 case STAR:
-                    star = new StarPolygon(currentX, currentY, Math.max(width, height) / 2, Math.max(width, height), 5, Math.PI / 2);
+                    x = startpoint.x;
+                    y = startpoint.y;
+                    star = new StarPolygon(x, y, Math.max(width, height) / 2, Math.max(width, height), 5, Math.PI / 2);
                     repaint();
                     break;
 
                 case TRIANGLE:
-                    triangle = new RegularPolygon(currentX, currentY, Math.max(width, height) / 2, 3, Math.PI / 6);
+                    x = startpoint.x;
+                    y = startpoint.y;
+                    //triangle = new RegularPolygon(x, y, Math.max(width, height) / 2, 3, Math.PI / 6);
+                    triangle = new Triangle(startpoint.x, startpoint.y, currentX, currentY);
                     repaint();
                     break;
 
                 case RAHIMBUS:
+                    x = startpoint.x;
+                    y = startpoint.y;
                     rahimbus = new RegularPolygon(x, y, Math.max(width, height), 4, 0);
                     repaint();
                     break;
 
                 case BAHAI:
-                    bahai = new StarPolygon(currentX, currentY, Math.max(width, height) / 2, Math.max(width, height), 9, Math.PI / 2);
+                    x = startpoint.x;
+                    y = startpoint.y;
+                    bahai = new StarPolygon(x, y, Math.max(width, height) / 2, Math.max(width, height), 9, Math.PI / 2);
                     repaint();
                     break;
 
