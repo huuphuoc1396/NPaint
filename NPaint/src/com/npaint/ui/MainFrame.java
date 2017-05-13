@@ -115,7 +115,7 @@ public class MainFrame extends javax.swing.JFrame {
                 "NPaint", JOptionPane.YES_NO_CANCEL_OPTION);
         switch (response) {
             case JOptionPane.YES_OPTION:
-                // Save Image
+                drawingPanel.SaveImage();
                 break;
             case JOptionPane.NO_OPTION:
                 System.exit(0);

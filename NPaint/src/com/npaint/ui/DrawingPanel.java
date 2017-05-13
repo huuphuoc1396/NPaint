@@ -22,7 +22,6 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Robot;
@@ -55,7 +54,6 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -126,7 +124,6 @@ public final class DrawingPanel extends javax.swing.JPanel {
     private Line2D.Float line2D;
     private double HEART_RADIUS;
     private Line2D.Float line2d;
-    private final Image hornIcon;
     private StarPolygon star, bahai;
     private int width, height, x, y;
     private final double zoom = 200;
@@ -199,10 +196,6 @@ public final class DrawingPanel extends javax.swing.JPanel {
         t.setEditable(false);
         this.add(t);
 
-//INITIALIZE THE ICONS-------------------------------------------        
-        URL urll = this.getClass().getResource("/com/npaint/icon/Horn.gif");
-        hornIcon = new ImageIcon(urll).getImage();
-//---------------------------------------------------------------        
         image = new BufferedImage(AREA_WIDTH, AREA_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         setVisible(true);
     }
@@ -742,12 +735,6 @@ public final class DrawingPanel extends javax.swing.JPanel {
                         g2d.drawRect(i, j, 10, 10);
                     }
                 }
-            } else if (figures == EnumRope.HITME) {
-                if (hornIcon != null) {
-                    g2d.drawImage(hornIcon, 0, 0, AREA_WIDTH, AREA_HEIGHT, null);
-                    repaint();
-                }
-
             } else if (figures == EnumRope.STAR && star != null) {
                 if (isFilled == true) {
                     g2d.fill(star);

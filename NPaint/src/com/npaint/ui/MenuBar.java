@@ -13,6 +13,7 @@ public final class MenuBar extends JMenuBar implements ActionListener {
     private final JMenuItem openItem;
     private final JMenuItem saveItem;
     private final JMenuItem saveAsItem;
+    private final JMenuItem printItem;
     private final JMenuItem closeItem;
 
     private final JMenu viewMenu;
@@ -31,12 +32,14 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         openItem = new JMenuItem("Open...");
         saveItem = new JMenuItem("Save");
         saveAsItem = new JMenuItem("Save As...");
+        printItem = new JMenuItem("Print...");
         closeItem = new JMenuItem("Close");
 
         fileMenu.add(newItem);
         fileMenu.add(openItem);
         fileMenu.add(saveItem);
         fileMenu.add(saveAsItem);
+        fileMenu.add(printItem);
         fileMenu.add(closeItem);
 
         viewMenu = new JMenu("View");
@@ -64,6 +67,7 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         openItem.addActionListener(this);
         saveItem.addActionListener(this);
         saveAsItem.addActionListener(this);
+        printItem.addActionListener(this);
         closeItem.addActionListener(this);
         helpItem.addActionListener(this);
         checkUpdateItem.addActionListener(this);
@@ -74,22 +78,23 @@ public final class MenuBar extends JMenuBar implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == newItem) {
-            /* Create and display the form */
-            new Thread(() -> {
-                new MainFrame().setVisible(true);
-            }).start();
+            DrawingPanel.getDrawingPanel().clearArea();
         }
 
         if (e.getSource() == openItem) {
-
+            DrawingPanel.getDrawingPanel().importImage();
         }
 
         if (e.getSource() == saveItem) {
-
+            DrawingPanel.getDrawingPanel().SaveImage();
         }
 
         if (e.getSource() == saveAsItem) {
+            DrawingPanel.getDrawingPanel().SaveImage();
+        }
 
+        if (e.getSource() == printItem) {
+            DrawingPanel.getDrawingPanel().printImage();
         }
 
         if (e.getSource() == closeItem) {

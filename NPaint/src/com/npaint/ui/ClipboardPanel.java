@@ -5,6 +5,10 @@
  */
 package com.npaint.ui;
 
+import com.npaint.model.shapes.EnumRope;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 /**
  *
  * @author Huu Phuoc
@@ -89,7 +93,19 @@ public class ClipboardPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pasteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasteButtonActionPerformed
-        // TODO add your handling code here:
+        DrawingPanel drawingPanel = DrawingPanel.getDrawingPanel();
+        drawingPanel.getFromClipboard();
+        drawingPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+                int count = e.getClickCount();
+                if (count >= 2) {
+                    drawingPanel.setFigures(EnumRope.DOIT);
+                    drawingPanel.Notifyuser("Copied image pasted.");
+                }
+            }
+        });
     }//GEN-LAST:event_pasteButtonActionPerformed
 
     private void cutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutButtonActionPerformed
@@ -97,7 +113,8 @@ public class ClipboardPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_cutButtonActionPerformed
 
     private void copyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyButtonActionPerformed
-        // TODO add your handling code here:
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.COPY);
+        DrawingPanel.getDrawingPanel().addToClipboard();
     }//GEN-LAST:event_copyButtonActionPerformed
 
 
