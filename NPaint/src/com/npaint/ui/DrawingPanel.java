@@ -62,6 +62,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -173,8 +175,10 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
     private boolean isMousePressed;
 
-    public static DrawingPanel getDrawingPanel() {
-        return drawingPanel;
+    private String currentSavePath;
+
+    public DrawingPanel(JLabel label) {
+        this.label = label;
     }
 
     public DrawingPanel() {
@@ -200,6 +204,18 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
         image = new BufferedImage(AREA_WIDTH, AREA_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         setVisible(true);
+    }
+
+    public boolean wasSaved() {
+        return currentSavePath != null;
+    }
+
+    public String getCurrentSavePath() {
+        return currentSavePath;
+    }
+
+    public static DrawingPanel getDrawingPanel() {
+        return drawingPanel;
     }
 
     public void setFigures(EnumRope figures) {
@@ -275,7 +291,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 BufferedImage img2 = ImageIO.read(file[1]);
                 BufferedImage mergedImage = joinBufferedImage(img1, img2);
                 ImageIO.write(mergedImage, "jpg", new File(System.getProperty("user.home") + File.separator + "MergedImage.jpg"));
-                Notifyuser("<html>" + "Saved at : " + System.getProperty("user.home") + File.separator + "<br>" + "Desktop\\" + "MergedImage.jpg" + "</html>");
+                notify("<html>" + "Saved at : " + System.getProperty("user.home") + File.separator + "<br>" + "Desktop\\" + "MergedImage.jpg" + "</html>");
             } catch (IOException e) {
                 System.out.println("ERROR: " + e.getMessage());
             }
@@ -780,6 +796,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     }
 
     public void clearArea() {
+        currentSavePath = null;
         label.setIcon(null);
         points.clear();
         currentX = 0;
@@ -880,10 +897,10 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 TransferableImage transferableImage = new TransferableImage(copyOfImage);
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(transferableImage, transferableImage);
-                Notifyuser("Selected area copied to clipboard.");
+                notify("Selected area copied to clipboard.");
                 isCopied = true;
             } catch (RasterFormatException ex) {
-                Notifyuser(ex.getMessage());
+                notify(ex.getMessage());
             }
         }
     }
@@ -904,11 +921,11 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 label.setSize(clippedImage.getWidth(), clippedImage.getHeight());
                 label.setVisible(true);
                 figures = EnumRope.PASTE;
-                Notifyuser("Move it via mouse! To paste just double click on screen.");
+                notify("Move it via mouse! To paste just double click on screen.");
             }
             return clippedImage;
         }
-        Notifyuser("At first u need to copy something!");
+        notify("At first u need to copy something!");
         return null;
     }
 //------------------ERASER CURSOR IMAGE---------------------------
@@ -1023,7 +1040,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     }
 
 //--------------ALERT(NOTFYING)----------------------------
-    public void Notifyuser(String note) {
+    public void notify(String note) {
         NotifyFrame notifyFrame = new NotifyFrame();
         notifyFrame.setNotifiyNote(note);
         notifyFrame.setVisible(true);
@@ -1039,7 +1056,6 @@ public final class DrawingPanel extends javax.swing.JPanel {
         FileNameExtensionFilter JpegFilter = new FileNameExtensionFilter("JPG & GIF & PNG Images", "jpg", "gif", "png");
         sec.setFileFilter(JpegFilter);
         sec.setAcceptAllFileFilterUsed(false);
-        sec.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         int result = sec.showOpenDialog(sec);
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
@@ -1060,16 +1076,16 @@ public final class DrawingPanel extends javax.swing.JPanel {
                     repaint();
                 } else {
 
-                    Notifyuser("Image cannot be null!");
+                    notify("Image cannot be null!");
                 }
-            } catch (IOException e1) {
-                Notifyuser("Error! cannot import image...");
+            } catch (IOException e) {
+                notify("Error! cannot import image...");
             }
         }
     }
 
 //-----------------------SAVE IMAGE AS--------------------------------
-    public boolean SaveImage() {
+    public boolean saveAs() {
         boolean status = false;
         try {
             final JFileChooser chooser = new JFileChooser();
@@ -1077,35 +1093,52 @@ public final class DrawingPanel extends javax.swing.JPanel {
             chooser.setFileFilter(JpegFilter);
             chooser.setAcceptAllFileFilterUsed(false);
             chooser.setSelectedFile(new File("Untitled.png"));
-            chooser.setFileSelectionMode(JFileChooser.SAVE_DIALOG);
-            chooser.setDialogTitle("Specify a directory to save the file.");
-            int result = chooser.showSaveDialog(null);
+            chooser.setDialogTitle("Save Image");
+            int result = chooser.showSaveDialog(this);
 
             if (result == JFileChooser.APPROVE_OPTION) {
                 File fileToSave = chooser.getSelectedFile();
                 String path = fileToSave.getAbsolutePath();
-
-                if (path != null && path.length() > 0) {
-                    String type = path.substring(path.length() - 3);
-                    if (type.equalsIgnoreCase("jpg")) {
-                        BufferedImage convertedImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
-                        convertedImage.createGraphics().drawImage(image, 0, 0, Color.WHITE, OBSERVER);
-                        ImageIO.write(convertedImage, type, new File(path));
-                    } else {
-                        ImageIO.write(image, type, new File(path));
-                    }
-                    Notifyuser("Your image saved successfully.");
-                    status = true;
-                } else {
-                    Notifyuser("Your directory is not correct!");
-                    status = false;
-                }
+                saveImage(path);
             }
-
-        } catch (IOException e2) {
+        } catch (IOException e) {
             System.out.println("Cannot save the image!");
+            System.out.println("ERROR: " + e.getMessage());
         }
         return status;
+    }
+
+    private boolean saveImage(String path) throws IOException {
+        boolean status;
+        if (path != null && path.length() > 0) {
+            currentSavePath = path;
+            String type = path.substring(path.length() - 3);
+            if (type.equalsIgnoreCase("jpg")) {
+                BufferedImage convertedImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
+                convertedImage.createGraphics().drawImage(image, 0, 0, Color.WHITE, OBSERVER);
+                ImageIO.write(convertedImage, type, new File(path));
+            } else {
+                ImageIO.write(image, type, new File(path));
+            }
+            notify("Your image saved successfully.");
+            status = true;
+        } else {
+            notify("Your directory is not correct!");
+            status = false;
+        }
+        return status;
+    }
+
+    public void save() {
+        try {
+            if (currentSavePath != null) {
+                saveImage(currentSavePath);
+            } else {
+                saveAs();
+            }
+        } catch (IOException ex) {
+            notify("Error! cannot import image...");
+        }
     }
 //---------------------PRINT THE DRAWING AREA-------------------------- 
 
@@ -1124,7 +1157,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
             if (OK) {
                 printJob.print();
             } else {
-                Notifyuser("Print job cancelled!");
+                notify("Print job cancelled!");
             }
         } catch (PrinterException e1) {
         }

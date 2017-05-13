@@ -5,6 +5,7 @@
  */
 package com.npaint.ui;
 
+import com.npaint.Utils;
 import com.npaint.model.shapes.EnumRope;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -111,11 +112,10 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        int response = JOptionPane.showConfirmDialog(null, "Do you want to save changes to Untitled?",
-                "NPaint", JOptionPane.YES_NO_CANCEL_OPTION);
+        int response = Utils.showConfirmSaveDialog();
         switch (response) {
             case JOptionPane.YES_OPTION:
-                drawingPanel.SaveImage();
+                drawingPanel.save();
                 break;
             case JOptionPane.NO_OPTION:
                 System.exit(0);

@@ -32,7 +32,7 @@ public class NotifyFrame extends JFrame {
      */
     private static final long serialVersionUID = 1L;
 
-    private JLabel label;
+    private final JLabel label;
 
     public NotifyFrame() {
         super("NotifyMe");

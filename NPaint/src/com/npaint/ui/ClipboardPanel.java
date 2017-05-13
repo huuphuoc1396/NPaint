@@ -102,7 +102,7 @@ public class ClipboardPanel extends javax.swing.JPanel {
                 int count = e.getClickCount();
                 if (count >= 2) {
                     drawingPanel.setFigures(EnumRope.DOIT);
-                    drawingPanel.Notifyuser("Copied image pasted.");
+                    drawingPanel.notify("Copied image pasted.");
                 }
             }
         });

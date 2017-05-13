@@ -1,10 +1,12 @@
 package com.npaint.ui;
 
+import com.npaint.Utils;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public final class MenuBar extends JMenuBar implements ActionListener {
 
@@ -17,8 +19,6 @@ public final class MenuBar extends JMenuBar implements ActionListener {
     private final JMenuItem closeItem;
 
     private final JMenu viewMenu;
-
-    private final JMenu optionsMenu;
 
     private final JMenu helpMenu;
     private final JMenuItem helpItem;
@@ -44,8 +44,6 @@ public final class MenuBar extends JMenuBar implements ActionListener {
 
         viewMenu = new JMenu("View");
 
-        optionsMenu = new JMenu("Options");
-
         helpMenu = new JMenu("Help");
         helpItem = new JMenuItem("NPaint Help");
         checkUpdateItem = new JMenuItem("Check for Updates");
@@ -57,7 +55,6 @@ public final class MenuBar extends JMenuBar implements ActionListener {
 
         add(fileMenu);
         add(viewMenu);
-        add(optionsMenu);
         add(helpMenu);
         addAction();
     }
@@ -78,19 +75,46 @@ public final class MenuBar extends JMenuBar implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == newItem) {
-            DrawingPanel.getDrawingPanel().clearArea();
+            int response = Utils.showConfirmSaveDialog();
+            switch (response) {
+                case JOptionPane.YES_OPTION:
+                    DrawingPanel.getDrawingPanel().save();
+                    break;
+                case JOptionPane.NO_OPTION:
+                    DrawingPanel.getDrawingPanel().clearArea();
+                    break;
+                case JOptionPane.CANCEL_OPTION:
+                    break;
+                default:
+                    break;
+            }
         }
 
         if (e.getSource() == openItem) {
-            DrawingPanel.getDrawingPanel().importImage();
+            int response = Utils.showConfirmSaveDialog();
+            switch (response) {
+                case JOptionPane.YES_OPTION:
+                    DrawingPanel.getDrawingPanel().save();
+                    DrawingPanel.getDrawingPanel().clearArea();
+                    DrawingPanel.getDrawingPanel().importImage();
+                    break;
+                case JOptionPane.NO_OPTION:
+                    DrawingPanel.getDrawingPanel().clearArea();
+                    DrawingPanel.getDrawingPanel().importImage();
+                    break;
+                case JOptionPane.CANCEL_OPTION:
+                    break;
+                default:
+                    break;
+            }
         }
 
         if (e.getSource() == saveItem) {
-            DrawingPanel.getDrawingPanel().SaveImage();
+            DrawingPanel.getDrawingPanel().save();
         }
 
         if (e.getSource() == saveAsItem) {
-            DrawingPanel.getDrawingPanel().SaveImage();
+            DrawingPanel.getDrawingPanel().saveAs();
         }
 
         if (e.getSource() == printItem) {
@@ -98,7 +122,19 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         }
 
         if (e.getSource() == closeItem) {
-            System.exit(0);
+            int response = Utils.showConfirmSaveDialog();
+            switch (response) {
+                case JOptionPane.YES_OPTION:
+                    DrawingPanel.getDrawingPanel().save();
+                    break;
+                case JOptionPane.NO_OPTION:
+                    System.exit(0);
+                    break;
+                case JOptionPane.CANCEL_OPTION:
+                    break;
+                default:
+                    break;
+            }
         }
 
         if (e.getSource() == helpItem) {
