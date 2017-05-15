@@ -5,6 +5,7 @@
  */
 package com.npaint.ui;
 
+import com.npaint.UndoRedoManager;
 import com.npaint.model.image.ImageProps;
 import com.npaint.model.image.MyObserver;
 import com.npaint.model.image.TransferableImage;
@@ -13,7 +14,6 @@ import com.npaint.model.shapes.HeartShape;
 import com.npaint.model.shapes.RegularPolygon;
 import com.npaint.model.shapes.StarPolygon;
 import com.npaint.model.shapes.Triangle;
-import com.npaint.stack.SizedStack;
 import java.awt.AWTException;
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
@@ -152,7 +152,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     private final static MyObserver OBSERVER = new MyObserver();
     private int thickness = 1, oldX, oldY, currentX, currentY, X, Y;
     protected final MyMouseListener mouseListener = new MyMouseListener();
-    private final SizedStack<BufferedImage> undoStack = new SizedStack<>(12);
+    private final UndoRedoManager<BufferedImage> undoRedoManager;
     private final Color selectionTrans = UIManager.getColor("List.selectionBackground");
     private Color Gredient1, Gredient2, currentColor = Color.BLACK, randomColor = Color.WHITE;
     private BasicStroke basicStroke = new BasicStroke(thickness, BasicStroke.CAP_ROUND,
@@ -178,10 +178,6 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
     private String currentSavePath;
 
-    public DrawingPanel(JLabel label) {
-        this.label = label;
-    }
-
     public DrawingPanel() {
         super();
 
@@ -204,6 +200,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
         image = new BufferedImage(AREA_WIDTH, AREA_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         setVisible(true);
+        undoRedoManager = new UndoRedoManager<>(image);
     }
 
     public boolean wasSaved() {
@@ -835,19 +832,26 @@ public final class DrawingPanel extends javax.swing.JPanel {
         }
     }
 
-//--------------DO UNDO (ADD TO STACK)------------------
+//--------------DO UNDO - REDO (ADD TO LIST)------------------
     public void undo() {
-        if (undoStack.size() > 0) {
-            setImage(undoStack.pop());
-            label.setIcon(null);
+        if (undoRedoManager.canUndo()) {
+            BufferedImage bufferedImage = undoRedoManager.undo();
+            setImage(bufferedImage);
         }
     }
 
-    private void saveToStack(BufferedImage img2) {
+    public void redo() {
+        if (undoRedoManager.canRedo()) {
+            BufferedImage bufferedImage = undoRedoManager.redo();
+            setImage(bufferedImage);
+        }
+    }
+
+    private void saveToUndoRedo(BufferedImage img) {
         BufferedImage imageForStack = new BufferedImage(AREA_WIDTH, AREA_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = imageForStack.createGraphics();
-        g2d.drawImage(img2, 0, 0, Color.WHITE, OBSERVER);
-        undoStack.push(imageForStack);
+        g2d.drawImage(img, 0, 0, Color.WHITE, OBSERVER);
+        undoRedoManager.set(imageForStack);
     }
 
 //-----------WHEN YOU CHANGE IMAGE SET IT MASTER-------------------
@@ -1050,7 +1054,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
         NotifyFrame notifyFrame = new NotifyFrame();
         notifyFrame.setNotifiyNote(note);
         notifyFrame.setVisible(true);
-        Timer swingTimer = new Timer(3000, (ActionEvent e) -> {
+        Timer swingTimer = new Timer(2000, (ActionEvent e) -> {
             notifyFrame.setVisible(false);
         });
         swingTimer.start();
@@ -1348,7 +1352,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
             
             rectangle = new java.awt.Rectangle();
             movedRectangle = new java.awt.Rectangle();
-            saveToStack(copyImage(image));
+            saveToUndoRedo(copyImage(image));
 
             if (e.getClickCount() == 1 && rect != null && figures == EnumRope.TEXT) {
                 if (e.getLocationOnScreen() != rect.getLocation()) {

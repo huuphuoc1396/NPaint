@@ -1,8 +1,12 @@
 package com.npaint.ui;
 
 import com.npaint.Utils;
+import com.npaint.model.shapes.EnumRope;
+import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -18,7 +22,12 @@ public final class MenuBar extends JMenuBar implements ActionListener {
     private final JMenuItem printItem;
     private final JMenuItem closeItem;
 
+    private final JMenu editMenu;
+    private final JMenuItem undoItem;
+    private final JMenuItem redoItem;
+
     private final JMenu viewMenu;
+    private final JCheckBoxMenuItem guideLinesItem;
 
     private final JMenu helpMenu;
     private final JMenuItem helpItem;
@@ -42,7 +51,17 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         fileMenu.add(printItem);
         fileMenu.add(closeItem);
 
+        editMenu = new JMenu("Edit");
+        undoItem = new JMenuItem("Undo");
+        redoItem = new JMenuItem("Redo");
+
+        editMenu.add(undoItem);
+        editMenu.add(redoItem);
+
         viewMenu = new JMenu("View");
+        guideLinesItem = new JCheckBoxMenuItem("Guide Lines");
+
+        viewMenu.add(guideLinesItem);
 
         helpMenu = new JMenu("Help");
         helpItem = new JMenuItem("NPaint Help");
@@ -54,6 +73,7 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         helpMenu.add(aboutItem);
 
         add(fileMenu);
+        add(editMenu);
         add(viewMenu);
         add(helpMenu);
         addAction();
@@ -69,6 +89,11 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         helpItem.addActionListener(this);
         checkUpdateItem.addActionListener(this);
         aboutItem.addActionListener(this);
+
+        undoItem.addActionListener(this);
+        redoItem.addActionListener(this);
+
+        guideLinesItem.addActionListener(this);
     }
 
     @Override
@@ -134,6 +159,22 @@ public final class MenuBar extends JMenuBar implements ActionListener {
                     break;
                 default:
                     break;
+            }
+        }
+
+        if (e.getSource() == undoItem) {
+            DrawingPanel.getDrawingPanel().undo();
+        }
+
+        if (e.getSource() == redoItem) {
+            DrawingPanel.getDrawingPanel().redo();
+        }
+
+        if (e.getSource() == guideLinesItem) {
+            DrawingPanel drawingPanel = DrawingPanel.getDrawingPanel();
+            if (guideLinesItem.isSelected() == true) {
+                drawingPanel.setFigures(EnumRope.GUIDELINES);
+                drawingPanel.repaint();
             }
         }
 
