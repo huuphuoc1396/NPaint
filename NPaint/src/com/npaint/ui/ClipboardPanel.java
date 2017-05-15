@@ -98,8 +98,6 @@ public class ClipboardPanel extends javax.swing.JPanel {
         drawingPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-
-                //int count = e.getClickCount();
                 if (drawingPanel.getFigures() == EnumRope.PASTE && !drawingPanel.isLabel()) {
                     drawingPanel.setFigures(EnumRope.DOIT);
                     drawingPanel.notify("Copied image pasted.");

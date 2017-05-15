@@ -930,8 +930,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 label.setIcon(new ImageIcon(clippedImage));
                 label.setSize(clippedImage.getWidth(), clippedImage.getHeight());
                 label.setVisible(true);
-                figures = EnumRope.PASTE;
-                notify("Move it via mouse! To paste just right click on screen.");
+                figures = EnumRope.PASTE;                
             }
             return clippedImage;
         }
