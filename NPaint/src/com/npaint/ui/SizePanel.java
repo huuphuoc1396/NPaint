@@ -59,25 +59,25 @@ public class SizePanel extends javax.swing.JPanel {
     private void sizeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeComboBoxActionPerformed
         switch (sizeComboBox.getSelectedIndex()) {
             case 0:
-                widthStroke = 1;
-                break;
-            case 1:
                 widthStroke = 2;
                 break;
-            case 2:
+            case 1:
                 widthStroke = 4;
                 break;
-            case 3:
-                widthStroke = 6;
-                break;
-            case 4:
+            case 2:
                 widthStroke = 8;
                 break;
-            case 5:
+            case 3:
                 widthStroke = 16;
                 break;
-            case 6:
+            case 4:
+                widthStroke = 24;
+                break;
+            case 5:
                 widthStroke = 32;
+                break;
+            case 6:
+                widthStroke = 48;
                 break;
         }
 

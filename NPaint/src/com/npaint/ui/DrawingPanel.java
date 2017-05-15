@@ -149,7 +149,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     private final List<List<Point>> points = new ArrayList<>(25);
     private static int AREA_WIDTH = 1280, AREA_HEIGHT = 720;
     private final static MyObserver OBSERVER = new MyObserver();
-    private int thickness = 1, oldX, oldY, currentX, currentY, X, Y;
+    private int thickness = 2, oldX, oldY, currentX, currentY, X, Y;
     protected final MyMouseListener mouseListener = new MyMouseListener();
     private final UndoRedoManager<BufferedImage> undoRedoManager;
     private final Color selectionTrans = UIManager.getColor("List.selectionBackground");
