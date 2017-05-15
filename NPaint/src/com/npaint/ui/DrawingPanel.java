@@ -62,9 +62,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
@@ -174,6 +173,8 @@ public final class DrawingPanel extends javax.swing.JPanel {
     private static DrawingPanel drawingPanel;
 
     private boolean isMousePressed;
+    
+    private boolean isLabel;
 
     private String currentSavePath;
 
@@ -194,8 +195,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
         addMouseWheelListener(mouseListener);
         addMouseMotionListener(mouseListener);
         label = new JLabel();
-        label.addMouseListener(mouseListener);
-        label.addMouseMotionListener(mouseListener);
+        label.setBorder(BorderFactory.createDashedBorder(null, 5, 5));
         t.setBackground(new Color(0, 0, 0, 0));
         t.setColumns(0);
         t.setLineWrap(true);
@@ -221,6 +221,14 @@ public final class DrawingPanel extends javax.swing.JPanel {
     public void setFigures(EnumRope figures) {
         this.figures = figures;
     }
+
+    public EnumRope getFigures() {
+        return figures;
+    }
+
+    public boolean isLabel() {
+        return isLabel;
+    }        
 
     public void setStroke(int value) {
         this.thickness = value;
@@ -677,9 +685,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 release = false;
                 label.setLocation(X, Y);
                 if (X > 0 && X < AREA_WIDTH && Y > 0 && Y < AREA_HEIGHT) {
-                    label.setLocation(X, Y);
-                } else {
-                    label.setLocation(image.getWidth() / 2, image.getHeight() / 2);
+                    label.setLocation(X,Y);
                 }
 
             } else if (figures == EnumRope.DOIT && isCopied) {
@@ -921,7 +927,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 label.setSize(clippedImage.getWidth(), clippedImage.getHeight());
                 label.setVisible(true);
                 figures = EnumRope.PASTE;
-                notify("Move it via mouse! To paste just double click on screen.");
+                notify("Move it via mouse! To paste just right click on screen.");
             }
             return clippedImage;
         }
@@ -1335,6 +1341,11 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
 //-------------------TEXT RECTANGLE-----------------------
             startpoint = e.getPoint();
+            
+            if (drawingPanel.getComponentAt(startpoint).equals(label)){
+                isLabel = true;
+            }
+            
             rectangle = new java.awt.Rectangle();
             movedRectangle = new java.awt.Rectangle();
             saveToStack(copyImage(image));
@@ -1469,17 +1480,22 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
             int thisX = label.getLocation().x;
             int thisY = label.getLocation().y;
-
-//-------------DETERMINE THE MOUSE MOVED SINCE THE INITIAL CLICK
-            int xMoved = (thisX + e.getX()) - (thisX + startpoint.x);
-            int yMoved = (thisY + e.getY()) - (thisY + startpoint.y);
-
-//----------------MOVE THE PICTURE TO THIS---------------------
-            X = thisX + xMoved;
-            Y = thisY + yMoved;
+//
+////-------------DETERMINE THE MOUSE MOVED SINCE THE INITIAL CLICK
+//            int xMoved = (thisX + e.getX()) - (thisX + startpoint.x);
+//            int yMoved = (thisX + e.getX()) - (thisX + startpoint.x);
+//
+////----------------MOVE THE PICTURE TO THIS---------------------
+//            X = thisX + xMoved;
+//            Y = thisY + yMoved;            
+            if (isLabel){
+                X = currentX;
+                Y = currentY;                
+            }
 
             label.setLocation(X, Y);
             label.repaint();
+
 //----------------------------CUADRIC CURVE------------------------
             switch (pressNo) {
                 case 1:
@@ -1516,6 +1532,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
 //----------------GETTING RELEASED COORDINATE TO DRAW LINE-------------------------
         @Override
         public void mouseReleased(MouseEvent e) {
+            isLabel = false;
             isMousePressed = false;
             if (null != figures) {
                 switch (figures) {

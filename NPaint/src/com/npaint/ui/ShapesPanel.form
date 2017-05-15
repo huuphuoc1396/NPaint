@@ -192,7 +192,6 @@
     <Component class="javax.swing.JCheckBox" name="fillCheckBox">
       <Properties>
         <Property name="text" type="java.lang.String" value=" Fill"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fillCheckBoxActionPerformed"/>

@@ -140,7 +140,6 @@ public class ShapesPanel extends javax.swing.JPanel {
         shapesLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         fillCheckBox.setText(" Fill");
-        fillCheckBox.setToolTipText("");
         fillCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fillCheckBoxActionPerformed(evt);
