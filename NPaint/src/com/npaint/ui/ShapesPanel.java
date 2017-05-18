@@ -40,10 +40,13 @@ public class ShapesPanel extends javax.swing.JPanel {
         heartButton = new javax.swing.JButton();
         bahaiButton = new javax.swing.JButton();
         shapesLabel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         fillCheckBox = new javax.swing.JCheckBox();
-        outlineButton = new javax.swing.JButton();
+        dashedCheckBox = new javax.swing.JCheckBox();
+        mixColorsCheckBox = new javax.swing.JCheckBox();
+        greadiantCheckBox = new javax.swing.JCheckBox();
 
-        panel.setLayout(new java.awt.GridLayout(3, 3, 1, 1));
+        panel.setLayout(new java.awt.GridLayout(3, 3, 4, 4));
 
         lineButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/Line.png"))); // NOI18N
         lineButton.setAlignmentY(0.0F);
@@ -139,19 +142,47 @@ public class ShapesPanel extends javax.swing.JPanel {
         shapesLabel.setText("Shapes");
         shapesLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        jPanel1.setLayout(new java.awt.GridLayout(4, 1));
+
         fillCheckBox.setText(" Fill");
+        fillCheckBox.setAlignmentY(0.0F);
+        fillCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
         fillCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fillCheckBoxActionPerformed(evt);
             }
         });
+        jPanel1.add(fillCheckBox);
 
-        outlineButton.setText("Outline");
-        outlineButton.addActionListener(new java.awt.event.ActionListener() {
+        dashedCheckBox.setText(" Dashed");
+        dashedCheckBox.setAlignmentY(0.0F);
+        dashedCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        dashedCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                outlineButtonActionPerformed(evt);
+                dashedCheckBoxActionPerformed(evt);
             }
         });
+        jPanel1.add(dashedCheckBox);
+
+        mixColorsCheckBox.setText(" Mix colors");
+        mixColorsCheckBox.setAlignmentY(0.0F);
+        mixColorsCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        mixColorsCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mixColorsCheckBoxActionPerformed(evt);
+            }
+        });
+        jPanel1.add(mixColorsCheckBox);
+
+        greadiantCheckBox.setText(" Greadiant");
+        greadiantCheckBox.setAlignmentY(0.0F);
+        greadiantCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        greadiantCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                greadiantCheckBoxActionPerformed(evt);
+            }
+        });
+        jPanel1.add(greadiantCheckBox);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -160,32 +191,21 @@ public class ShapesPanel extends javax.swing.JPanel {
             .addComponent(shapesLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(outlineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fillCheckBox)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(outlineButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fillCheckBox)))
-                .addGap(0, 10, Short.MAX_VALUE)
+                        .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(shapesLabel))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void fillCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillCheckBoxActionPerformed
-        if (fillCheckBox.isSelected()) {
-            DrawingPanel.getDrawingPanel().setAllFilled();
-        } else {
-            DrawingPanel.getDrawingPanel().setUnFilled();
-        }
-    }//GEN-LAST:event_fillCheckBoxActionPerformed
 
     private void lineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lineButtonActionPerformed
         DrawingPanel.getDrawingPanel().setFigures(EnumRope.LINE);
@@ -224,18 +244,47 @@ public class ShapesPanel extends javax.swing.JPanel {
         DrawingPanel.getDrawingPanel().setFigures(EnumRope.BAHAI);
     }//GEN-LAST:event_bahaiButtonActionPerformed
 
-    private void outlineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outlineButtonActionPerformed
+    private void fillCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillCheckBoxActionPerformed
+        if (fillCheckBox.isSelected()) {
+            DrawingPanel.getDrawingPanel().setAllFilled();
+        } else {
+            DrawingPanel.getDrawingPanel().setUnFilled();
+        }
+    }//GEN-LAST:event_fillCheckBoxActionPerformed
 
-    }//GEN-LAST:event_outlineButtonActionPerformed
+    private void dashedCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashedCheckBoxActionPerformed
+        if (dashedCheckBox.isSelected()) {
+            DrawingPanel.getDrawingPanel().setDashed();
+        } else {
+            DrawingPanel.getDrawingPanel().unDashed();
+        }
+    }//GEN-LAST:event_dashedCheckBoxActionPerformed
+
+    private void mixColorsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mixColorsCheckBoxActionPerformed
+        if (mixColorsCheckBox.isSelected()) {
+            DrawingPanel.getDrawingPanel().setRandomColor();
+        } else {
+            DrawingPanel.getDrawingPanel().setUnRandomColor();
+        }
+    }//GEN-LAST:event_mixColorsCheckBoxActionPerformed
+
+    private void greadiantCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_greadiantCheckBoxActionPerformed
+        if (greadiantCheckBox.isSelected()) {
+            DrawingPanel.getDrawingPanel().setGreadiant();
+        }
+    }//GEN-LAST:event_greadiantCheckBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bahaiButton;
     private javax.swing.JButton curveButton;
+    private javax.swing.JCheckBox dashedCheckBox;
     private javax.swing.JCheckBox fillCheckBox;
+    private javax.swing.JCheckBox greadiantCheckBox;
     private javax.swing.JButton heartButton;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton lineButton;
-    private javax.swing.JButton outlineButton;
+    private javax.swing.JCheckBox mixColorsCheckBox;
     private javax.swing.JButton ovalButton;
     private javax.swing.JPanel panel;
     private javax.swing.JButton rahimbusButton;

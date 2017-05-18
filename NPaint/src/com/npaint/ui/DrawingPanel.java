@@ -173,7 +173,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     private static DrawingPanel drawingPanel;
 
     private boolean isMousePressed;
-    
+
     private boolean isLabel;
 
     private String currentSavePath;
@@ -225,7 +225,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
     public boolean isLabel() {
         return isLabel;
-    }        
+    }
 
     public void setStroke(int value) {
         this.thickness = value;
@@ -390,19 +390,19 @@ public final class DrawingPanel extends javax.swing.JPanel {
         this.isFilled = false;
     }
 
-    public void setDashed(JButton pen, JButton text, JSlider slider) {
+    public void setDashed() {
 
-        pen.setEnabled(false);
-        text.setEnabled(false);
-        slider.setEnabled(false);
+        // pen.setEnabled(false);
+        // text.setEnabled(false);
+        // slider.setEnabled(false);
         basicStroke = new BasicStroke(2, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND, 1, new float[]{4}, 0);
     }
 
-    public void unDashed(JButton pen, JButton text, JSlider slider) {
+    public void unDashed() {
 
-        pen.setEnabled(true);
-        text.setEnabled(true);
-        slider.setEnabled(true);
+        // pen.setEnabled(true);
+        // text.setEnabled(true);
+        // slider.setEnabled(true);
         setBasic();
     }
 
@@ -452,7 +452,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
         isRandomColor = false;
     }
 
-    public void setGredient() {
+    public void setGreadiant() {
         currentColor = null;
         isRandomColor = false;
         isGredientColor = true;
@@ -682,7 +682,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 release = false;
                 label.setLocation(X, Y);
                 if (X > 0 && X < AREA_WIDTH && Y > 0 && Y < AREA_HEIGHT) {
-                    label.setLocation(X,Y);
+                    label.setLocation(X, Y);
                 }
 
             } else if (figures == EnumRope.DOIT && isCopied) {
@@ -930,7 +930,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 label.setIcon(new ImageIcon(clippedImage));
                 label.setSize(clippedImage.getWidth(), clippedImage.getHeight());
                 label.setVisible(true);
-                figures = EnumRope.PASTE;                
+                figures = EnumRope.PASTE;
             }
             return clippedImage;
         }
@@ -1344,11 +1344,11 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
 //-------------------TEXT RECTANGLE-----------------------
             startpoint = e.getPoint();
-            
-            if (drawingPanel.getComponentAt(startpoint).equals(label)){
+
+            if (drawingPanel.getComponentAt(startpoint).equals(label)) {
                 isLabel = true;
             }
-            
+
             rectangle = new java.awt.Rectangle();
             movedRectangle = new java.awt.Rectangle();
             saveToUndoRedo(copyImage(image));
@@ -1491,9 +1491,9 @@ public final class DrawingPanel extends javax.swing.JPanel {
 ////----------------MOVE THE PICTURE TO THIS---------------------
 //            X = thisX + xMoved;
 //            Y = thisY + yMoved;            
-            if (isLabel){
+            if (isLabel) {
                 X = currentX;
-                Y = currentY;                
+                Y = currentY;
             }
 
             label.setLocation(X, Y);
