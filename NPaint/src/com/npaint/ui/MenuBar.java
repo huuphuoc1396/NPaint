@@ -2,8 +2,8 @@ package com.npaint.ui;
 
 import com.npaint.Utils;
 import com.npaint.model.shapes.EnumRope;
-import java.awt.Cursor;
-import java.awt.Font;
+import com.sun.glass.events.KeyEvent;
+import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JCheckBoxMenuItem;
@@ -11,6 +11,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
+import javax.swing.Timer;
 
 public final class MenuBar extends JMenuBar implements ActionListener {
 
@@ -44,18 +46,36 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         printItem = new JMenuItem("Print...");
         closeItem = new JMenuItem("Close");
 
+        newItem.setMnemonic('N');
+        newItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, Event.CTRL_MASK));
         fileMenu.add(newItem);
+
+        openItem.setMnemonic('O');
+        openItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK));
         fileMenu.add(openItem);
+
+        saveItem.setMnemonic('S');
+        saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Event.CTRL_MASK));
         fileMenu.add(saveItem);
+
         fileMenu.add(saveAsItem);
+
+        printItem.setMnemonic('P');
+        printItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, Event.CTRL_MASK));
         fileMenu.add(printItem);
+
+        closeItem.setMnemonic('C');
+        closeItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, Event.CTRL_MASK));
         fileMenu.add(closeItem);
 
         editMenu = new JMenu("Edit");
         undoItem = new JMenuItem("Undo");
         redoItem = new JMenuItem("Redo");
 
+        undoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Event.CTRL_MASK));
         editMenu.add(undoItem);
+
+        redoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Event.CTRL_MASK));
         editMenu.add(redoItem);
 
         viewMenu = new JMenu("View");
@@ -64,12 +84,17 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         viewMenu.add(guideLinesItem);
 
         helpMenu = new JMenu("Help");
-        helpItem = new JMenuItem("NPaint Help");
+        helpItem = new JMenuItem("Help");
         checkUpdateItem = new JMenuItem("Check for Updates");
         aboutItem = new JMenuItem("About");
 
+        helpItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
         helpMenu.add(helpItem);
+
         helpMenu.add(checkUpdateItem);
+
+        aboutItem.setMnemonic('A');
+        aboutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, Event.CTRL_MASK));
         helpMenu.add(aboutItem);
 
         add(fileMenu);
@@ -179,7 +204,13 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         }
 
         if (e.getSource() == helpItem) {
-
+            NotifyFrame notifyFrame = new NotifyFrame();
+            notifyFrame.setNotifiyNote("Help");
+            notifyFrame.setVisible(true);
+            Timer swingTimer = new Timer(2000, (ActionEvent ae) -> {
+                notifyFrame.setVisible(false);
+            });
+            swingTimer.start();
         }
 
         if (e.getSource() == checkUpdateItem) {
@@ -187,7 +218,13 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         }
 
         if (e.getSource() == aboutItem) {
-
+            NotifyFrame notifyFrame = new NotifyFrame();
+            notifyFrame.setNotifiyNote("About");
+            notifyFrame.setVisible(true);
+            Timer swingTimer = new Timer(2000, (ActionEvent ae) -> {
+                notifyFrame.setVisible(false);
+            });
+            swingTimer.start();
         }
 
     }
