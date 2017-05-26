@@ -95,11 +95,13 @@ public class ImagePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_selectButtonActionPerformed
 
     private void cropButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cropButtonActionPerformed
-        // TODO add your handling code here:
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.CROP);
+        DrawingPanel.getDrawingPanel().cropImage();
     }//GEN-LAST:event_cropButtonActionPerformed
 
     private void rotateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rotateButtonActionPerformed
-        // TODO add your handling code here:
+       DrawingPanel.getDrawingPanel().RotateImage();
+       DrawingPanel.getDrawingPanel().repaint();
     }//GEN-LAST:event_rotateButtonActionPerformed
 
 
