@@ -6,6 +6,8 @@ import com.sun.glass.events.KeyEvent;
 import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -27,6 +29,9 @@ public final class MenuBar extends JMenuBar implements ActionListener {
     private final JMenu editMenu;
     private final JMenuItem undoItem;
     private final JMenuItem redoItem;
+    private final JMenuItem copyItem;
+    private final JMenuItem cutItem;
+    private final JMenuItem pasteItem;
 
     private final JMenu viewMenu;
     private final JCheckBoxMenuItem guideLinesItem;
@@ -44,7 +49,7 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         saveItem = new JMenuItem("Save");
         saveAsItem = new JMenuItem("Save As...");
         printItem = new JMenuItem("Print...");
-        closeItem = new JMenuItem("Close");
+        closeItem = new JMenuItem("Exit");
 
         newItem.setMnemonic('N');
         newItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, Event.CTRL_MASK));
@@ -64,19 +69,31 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         printItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, Event.CTRL_MASK));
         fileMenu.add(printItem);
 
-        closeItem.setMnemonic('C');
-        closeItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, Event.CTRL_MASK));
+        closeItem.setMnemonic('E');
+        closeItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, Event.CTRL_MASK));
         fileMenu.add(closeItem);
 
         editMenu = new JMenu("Edit");
         undoItem = new JMenuItem("Undo");
         redoItem = new JMenuItem("Redo");
+        cutItem = new JMenuItem("Cut");
+        copyItem = new JMenuItem("Copy");
+        pasteItem = new JMenuItem("Paste");
 
         undoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Event.CTRL_MASK));
         editMenu.add(undoItem);
 
         redoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Event.CTRL_MASK));
         editMenu.add(redoItem);
+
+        cutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, Event.CTRL_MASK));
+        editMenu.add(cutItem);
+
+        copyItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, Event.CTRL_MASK));
+        editMenu.add(copyItem);
+
+        pasteItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK));
+        editMenu.add(pasteItem);
 
         viewMenu = new JMenu("View");
         guideLinesItem = new JCheckBoxMenuItem("Guide Lines");
@@ -117,6 +134,9 @@ public final class MenuBar extends JMenuBar implements ActionListener {
 
         undoItem.addActionListener(this);
         redoItem.addActionListener(this);
+        cutItem.addActionListener(this);
+        copyItem.addActionListener(this);
+        pasteItem.addActionListener(this);
 
         guideLinesItem.addActionListener(this);
     }
@@ -193,6 +213,29 @@ public final class MenuBar extends JMenuBar implements ActionListener {
 
         if (e.getSource() == redoItem) {
             DrawingPanel.getDrawingPanel().redo();
+        }
+
+        if (e.getSource() == copyItem) {
+            DrawingPanel.getDrawingPanel().setFigures(EnumRope.COPY);
+            DrawingPanel.getDrawingPanel().addToClipboard();
+        }
+
+        if (e.getSource() == cutItem) {
+
+        }
+
+        if (e.getSource() == pasteItem) {
+            DrawingPanel drawingPanel = DrawingPanel.getDrawingPanel();
+            drawingPanel.getFromClipboard();
+            drawingPanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    if (drawingPanel.getFigures() == EnumRope.PASTE && !drawingPanel.isLabel()) {
+                        drawingPanel.setFigures(EnumRope.DOIT);
+                        drawingPanel.notify("Copied image pasted.");
+                    }
+                }
+            });
         }
 
         if (e.getSource() == guideLinesItem) {
