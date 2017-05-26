@@ -612,11 +612,11 @@ public final class DrawingPanel extends javax.swing.JPanel {
                     repaint();
                 }
 
-            } else if (figures == EnumRope.ERASER && ErasRect != null) {
-
-                g2d.setPaint(Color.WHITE);
-                g2d.fill(ErasRect);
-
+            } else if (figures == EnumRope.ERASER) {
+                if (isMousePressed) {
+                    g2d.drawLine(oldX, oldY, currentX, currentY);
+                    repaint();
+                }
             } else if (figures == EnumRope.CURVE) {
                 switch (pressNo) {
                     case 1:
@@ -1240,15 +1240,8 @@ public final class DrawingPanel extends javax.swing.JPanel {
         repaint();
     }
 
-    public void addEraser(Rectangle2D.Float erasRect) {
-        g2D.setStroke(basicStroke);
-        g2D.setPaint(Color.WHITE);
-        g2D.fill(erasRect);
-        repaint();
-    }
-
     public void addPencil(Color color, int tickness) {
-
+        g2D.setColor(color);
         g2D.setStroke(new BasicStroke(tickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 
         g2D.drawLine(oldX, oldY, currentX, currentY);
@@ -1441,11 +1434,6 @@ public final class DrawingPanel extends javax.swing.JPanel {
                     repaint();
                     break;
 
-                case ERASER:
-                    ErasRect = new Rectangle2D.Float(currentX, currentY, thickness + 5, thickness + 5);
-                    repaint();
-                    break;
-
                 case STAR:
                     x = startpoint.x;
                     y = startpoint.y;
@@ -1522,8 +1510,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
 //--------WE NEED ADD THIS TWO SHAPE HERE BECAUSE SHAPE DARWING WITH MOUSEDRAG !
             if (figures == EnumRope.ERASER) {
-                addEraser(ErasRect);
-                ErasRect = null;
+                addPencil(Color.WHITE, thickness + 8);
                 repaint();
             } else if (figures == EnumRope.PENCIL) {
                 addPencil(currentColor, thickness);
