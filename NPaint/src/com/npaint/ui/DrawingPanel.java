@@ -121,7 +121,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     private int dragFlag1 = -1;
     private int dragFlag2 = -1;
     private final JLabel label;
-    private EnumRope figures;
+    private EnumRope figures = EnumRope.PENCIL;
     float dashes[] = {5f, 5f};
     private Line2D.Float line2D;
     private double HEART_RADIUS;
