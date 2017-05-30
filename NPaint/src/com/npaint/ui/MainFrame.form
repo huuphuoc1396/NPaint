@@ -115,6 +115,9 @@
       </SubComponents>
     </Container>
     <Container class="com.npaint.ui.DrawingPanel" name="drawingPanel">
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="drawingPanelMousePressed"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">

@@ -232,6 +232,10 @@ public final class DrawingPanel extends javax.swing.JPanel {
         setBasic();
     }
 
+    public Color getCurrentColor() {
+        return currentColor;
+    }
+
     public void changeImageSizeDynmcally(int x, int y) {
 
         AREA_WIDTH = x;

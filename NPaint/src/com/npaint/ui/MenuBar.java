@@ -3,7 +3,6 @@ package com.npaint.ui;
 import com.npaint.Utils;
 import com.npaint.model.shapes.EnumRope;
 import com.sun.glass.events.KeyEvent;
-import java.awt.Event;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

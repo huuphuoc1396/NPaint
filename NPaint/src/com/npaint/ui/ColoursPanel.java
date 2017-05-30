@@ -7,6 +7,7 @@ package com.npaint.ui;
 
 import java.awt.Color;
 import javax.swing.JColorChooser;
+import javax.swing.JPanel;
 
 /**
  *
@@ -404,11 +405,13 @@ public final class ColoursPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables
 
+    private static ColoursPanel coloursPanel;
     private static Color currentColor;
 
     public ColoursPanel() {
         initComponents();
         initColorButton();
+        coloursPanel = this;
     }
 
     public void initColorButton() {
@@ -456,6 +459,10 @@ public final class ColoursPanel extends javax.swing.JPanel {
         DrawingPanel.getDrawingPanel().chooseColor(color);
     }
 
+    public static ColoursPanel getColoursPanel() {
+        return coloursPanel;
+    }
+    
     public static Color getCurrentColor() {
         return currentColor;
     }
