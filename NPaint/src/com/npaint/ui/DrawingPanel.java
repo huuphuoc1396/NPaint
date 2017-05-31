@@ -195,6 +195,8 @@ public final class DrawingPanel extends javax.swing.JPanel {
         t.setBorder(BorderFactory.createEmptyBorder());
         t.setBackground(new Color(0, 0, 0, 0));
         t.setColumns(0);
+        t.setLineWrap(true);
+        t.setWrapStyleWord(true);
         t.setEditable(false);
         this.add(t);
 
