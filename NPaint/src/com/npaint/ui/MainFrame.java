@@ -5,8 +5,6 @@
  */
 package com.npaint.ui;
 
-import com.npaint.Utils;
-import com.npaint.model.shapes.EnumRope;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,9 +19,8 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form MainFrame
      */
     public MainFrame() {
-        this.setIconImage(new ImageIcon(getClass().getResource("/com/npaint/icon/npaint_main_icon.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/com/npaint/icon/npaint_icon.png")).getImage());
         initComponents();
-        drawingPanel.setFigures(EnumRope.PENCIL);
     }
 
     /**
@@ -35,15 +32,14 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        drawingScrollPane = new javax.swing.JScrollPane();
+        scrollPane = new javax.swing.JScrollPane();
         panel = new javax.swing.JPanel();
-        homeScrollPane = new javax.swing.JScrollPane();
-        homePanel = new com.npaint.ui.HomePanel();
         drawingPanel = new com.npaint.ui.DrawingPanel();
+        homePanel = new com.npaint.ui.HomePanel();
         menuBar = new com.npaint.ui.MenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("NPaint");
+        setTitle("NPaint Application");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -52,25 +48,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         panel.setMaximumSize(new java.awt.Dimension(1280, 720));
         panel.setPreferredSize(new java.awt.Dimension(1280, 720));
-
-        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
-        panel.setLayout(panelLayout);
-        panelLayout.setHorizontalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1280, Short.MAX_VALUE)
-        );
-        panelLayout.setVerticalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
-        );
-
-        drawingScrollPane.setViewportView(panel);
-
-        homeScrollPane.setMaximumSize(new java.awt.Dimension(1280, 150));
-
-        homePanel.setMaximumSize(new java.awt.Dimension(1280, 150));
-        homePanel.setMinimumSize(new java.awt.Dimension(32, 32));
-        homeScrollPane.setViewportView(homePanel);
 
         drawingPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -89,6 +66,23 @@ public class MainFrame extends javax.swing.JFrame {
             .addGap(0, 720, Short.MAX_VALUE)
         );
 
+        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(drawingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addComponent(drawingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        scrollPane.setViewportView(panel);
+
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -97,24 +91,18 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1290, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(drawingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(drawingScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
-                    .addComponent(homeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(homePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(homeScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(drawingScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(drawingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(homePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -122,10 +110,11 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        int response = Utils.showConfirmSaveDialog();
+        int response = JOptionPane.showConfirmDialog(null, "Do you want to save changes to Untitled?",
+                "NPaint", JOptionPane.YES_NO_CANCEL_OPTION);
         switch (response) {
             case JOptionPane.YES_OPTION:
-                drawingPanel.save();
+                // Save Image
                 break;
             case JOptionPane.NO_OPTION:
                 System.exit(0);
@@ -170,17 +159,18 @@ public class MainFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        new Thread(() -> {
-            new MainFrame().setVisible(true);
-        }).start();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MainFrame().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.npaint.ui.DrawingPanel drawingPanel;
-    private javax.swing.JScrollPane drawingScrollPane;
     private com.npaint.ui.HomePanel homePanel;
-    private javax.swing.JScrollPane homeScrollPane;
     private com.npaint.ui.MenuBar menuBar;
     private javax.swing.JPanel panel;
+    private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 }
