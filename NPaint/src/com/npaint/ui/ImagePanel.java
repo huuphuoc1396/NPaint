@@ -18,6 +18,7 @@ public class ImagePanel extends javax.swing.JPanel {
      */
     public ImagePanel() {
         initComponents();
+        imagePanel = this;
     }
 
     /**
@@ -46,6 +47,7 @@ public class ImagePanel extends javax.swing.JPanel {
 
         cropButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/crop_icon.png"))); // NOI18N
         cropButton.setText("Crop");
+        cropButton.setEnabled(false);
         cropButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cropButtonActionPerformed(evt);
@@ -111,4 +113,13 @@ public class ImagePanel extends javax.swing.JPanel {
     private javax.swing.JButton rotateButton;
     private javax.swing.JButton selectButton;
     // End of variables declaration//GEN-END:variables
+    private static ImagePanel imagePanel;
+
+    public static ImagePanel getImagePanel() {
+        return imagePanel;
+    }
+    
+    public void selected(boolean b) {
+        cropButton.setEnabled(b);
+    }
 }
