@@ -119,7 +119,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     private int dragFlag1 = -1;
     private int dragFlag2 = -1;
     private final JLabel label;
-    private EnumRope figures;
+    private EnumRope figures = EnumRope.PENCIL;
     float dashes[] = {5f, 5f};
     private Line2D.Float line2D;
     private double HEART_RADIUS;
@@ -199,6 +199,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
         this.add(t);
 
         image = new BufferedImage(AREA_WIDTH, AREA_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        image.setRGB(255, 255, 255);
         setVisible(true);
         undoRedoManager = new UndoRedoManager<>(image);
     }
@@ -230,6 +231,10 @@ public final class DrawingPanel extends javax.swing.JPanel {
     public void setStroke(int value) {
         this.thickness = value;
         setBasic();
+    }
+
+    public Color getCurrentColor() {
+        return currentColor;
     }
 
     public void changeImageSizeDynmcally(int x, int y) {
@@ -703,6 +708,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
                     this.remove(label);
                     clearClipBoard();
                     isCopied = false;
+                    ClipboardPanel.getClipboardPanel().copied(isCopied);
                 }
 
             } else if (figures == EnumRope.TRIANGLE && triangle != null) {
@@ -891,6 +897,8 @@ public final class DrawingPanel extends javax.swing.JPanel {
             g.drawImage(cropedImage, 0, 0, OBSERVER);
             setImage(croppedCopy);
             repaint();
+            ClipboardPanel.getClipboardPanel().selected(false);
+            ImagePanel.getImagePanel().selected(false);
         }
     }
 
@@ -910,10 +918,10 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 TransferableImage transferableImage = new TransferableImage(copyOfImage);
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(transferableImage, transferableImage);
-                notify("Selected area copied to clipboard.");
                 isCopied = true;
+                ClipboardPanel.getClipboardPanel().copied(isCopied);
             } catch (RasterFormatException ex) {
-                notify(ex.getMessage());
+                System.out.println("COPY ERROR: " + ex.getMessage());
             }
         }
     }
@@ -1312,6 +1320,9 @@ public final class DrawingPanel extends javax.swing.JPanel {
             currentY = oldY = e.getY();
             repaint();
 
+            ClipboardPanel.getClipboardPanel().selected(false);
+            ImagePanel.getImagePanel().selected(false);
+
 //---------------CUARDIC CURVE----------------------------
             if (figures == EnumRope.CURVE) {
                 switch (pressNo) {
@@ -1595,6 +1606,14 @@ public final class DrawingPanel extends javax.swing.JPanel {
                         if (star != null) {
                             addStar(star);
                             star = null;
+                        }
+                        break;
+                    case SELECTION:
+                        if (movedRectangle != null) {
+                            if (movedRectangle.getWidth() > 0 && movedRectangle.getHeight() > 0) {
+                                ClipboardPanel.getClipboardPanel().selected(true);
+                                ImagePanel.getImagePanel().selected(true);
+                            }
                         }
                         break;
                     case COPY:

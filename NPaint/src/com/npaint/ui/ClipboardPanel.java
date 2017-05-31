@@ -20,6 +20,7 @@ public class ClipboardPanel extends javax.swing.JPanel {
      */
     public ClipboardPanel() {
         initComponents();
+        clipboardPanel = this;
     }
 
     /**
@@ -38,6 +39,7 @@ public class ClipboardPanel extends javax.swing.JPanel {
 
         pasteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/paste_icon.png"))); // NOI18N
         pasteButton.setText("Paste");
+        pasteButton.setEnabled(false);
         pasteButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pasteButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         pasteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -48,6 +50,7 @@ public class ClipboardPanel extends javax.swing.JPanel {
 
         cutButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/cut_icon.png"))); // NOI18N
         cutButton.setText("Cut");
+        cutButton.setEnabled(false);
         cutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cutButtonActionPerformed(evt);
@@ -56,6 +59,7 @@ public class ClipboardPanel extends javax.swing.JPanel {
 
         copyButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/npaint/icon/copy_icon.png"))); // NOI18N
         copyButton.setText("Copy");
+        copyButton.setEnabled(false);
         copyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 copyButtonActionPerformed(evt);
@@ -100,8 +104,8 @@ public class ClipboardPanel extends javax.swing.JPanel {
             public void mousePressed(MouseEvent e) {
                 if (drawingPanel.getFigures() == EnumRope.PASTE && !drawingPanel.isLabel()) {
                     drawingPanel.setFigures(EnumRope.DOIT);
-                    drawingPanel.notify("Copied image pasted.");
                 }
+                selected(false);
             }
         });
     }//GEN-LAST:event_pasteButtonActionPerformed
@@ -122,4 +126,18 @@ public class ClipboardPanel extends javax.swing.JPanel {
     private javax.swing.JButton cutButton;
     private javax.swing.JButton pasteButton;
     // End of variables declaration//GEN-END:variables
+    private static ClipboardPanel clipboardPanel;
+    
+    public void copied(boolean b){
+        pasteButton.setEnabled(b);
+    }
+    
+    public void selected(boolean b) {
+        cutButton.setEnabled(b);
+        copyButton.setEnabled(b);
+    }
+
+    public static ClipboardPanel getClipboardPanel() {
+        return clipboardPanel;
+    }
 }

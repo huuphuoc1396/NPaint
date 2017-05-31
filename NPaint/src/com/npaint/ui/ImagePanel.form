@@ -64,6 +64,7 @@
           <Image iconType="3" name="/com/npaint/icon/crop_icon.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Crop"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cropButtonActionPerformed"/>

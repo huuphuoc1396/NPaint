@@ -3,7 +3,7 @@ package com.npaint.ui;
 import com.npaint.Utils;
 import com.npaint.model.shapes.EnumRope;
 import com.sun.glass.events.KeyEvent;
-import java.awt.Event;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -34,6 +34,8 @@ public final class MenuBar extends JMenuBar implements ActionListener {
     private final JMenuItem pasteItem;
 
     private final JMenu viewMenu;
+    private final JMenuItem zoomInItem;
+    private final JMenuItem zoomOutItem;
     private final JCheckBoxMenuItem guideLinesItem;
 
     private final JMenu helpMenu;
@@ -41,6 +43,8 @@ public final class MenuBar extends JMenuBar implements ActionListener {
     private final JMenuItem checkUpdateItem;
     private final JMenuItem aboutItem;
 
+    private static int zoomCounter; 
+    
     public MenuBar() {
 
         fileMenu = new JMenu("File");
@@ -52,25 +56,25 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         closeItem = new JMenuItem("Exit");
 
         newItem.setMnemonic('N');
-        newItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, Event.CTRL_MASK));
+        newItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         fileMenu.add(newItem);
 
         openItem.setMnemonic('O');
-        openItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK));
+        openItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         fileMenu.add(openItem);
 
         saveItem.setMnemonic('S');
-        saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Event.CTRL_MASK));
+        saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         fileMenu.add(saveItem);
 
         fileMenu.add(saveAsItem);
 
         printItem.setMnemonic('P');
-        printItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, Event.CTRL_MASK));
+        printItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         fileMenu.add(printItem);
 
         closeItem.setMnemonic('E');
-        closeItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, Event.CTRL_MASK));
+        closeItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         fileMenu.add(closeItem);
 
         editMenu = new JMenu("Edit");
@@ -80,24 +84,33 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         copyItem = new JMenuItem("Copy");
         pasteItem = new JMenuItem("Paste");
 
-        undoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Event.CTRL_MASK));
+        undoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         editMenu.add(undoItem);
 
-        redoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Event.CTRL_MASK));
+        redoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         editMenu.add(redoItem);
 
-        cutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, Event.CTRL_MASK));
+        cutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         editMenu.add(cutItem);
 
-        copyItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, Event.CTRL_MASK));
+        copyItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         editMenu.add(copyItem);
 
-        pasteItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK));
+        pasteItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         editMenu.add(pasteItem);
 
         viewMenu = new JMenu("View");
+        zoomInItem = new JMenuItem("Zoom In");
+        zoomOutItem = new JMenuItem("Zoom Out");
         guideLinesItem = new JCheckBoxMenuItem("Guide Lines");
 
+        zoomInItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        viewMenu.add(zoomInItem);
+        
+        zoomOutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        zoomOutItem.setEnabled(false);
+        viewMenu.add(zoomOutItem);
+        
         viewMenu.add(guideLinesItem);
 
         helpMenu = new JMenu("Help");
@@ -111,7 +124,7 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         helpMenu.add(checkUpdateItem);
 
         aboutItem.setMnemonic('A');
-        aboutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, Event.CTRL_MASK));
+        aboutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         helpMenu.add(aboutItem);
 
         add(fileMenu);
@@ -119,6 +132,8 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         add(viewMenu);
         add(helpMenu);
         addAction();
+        
+        zoomCounter = 0;
     }
 
     public void addAction() {
@@ -138,6 +153,8 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         copyItem.addActionListener(this);
         pasteItem.addActionListener(this);
 
+        zoomInItem.addActionListener(this);
+        zoomOutItem.addActionListener(this);
         guideLinesItem.addActionListener(this);
     }
 
@@ -236,6 +253,29 @@ public final class MenuBar extends JMenuBar implements ActionListener {
                     }
                 }
             });
+        }
+        
+        
+        if(e.getSource() == zoomInItem) {
+            zoomCounter++;
+            zoomOutItem.setEnabled(true);
+            zoomInItem.setEnabled(true);
+            DrawingPanel.getDrawingPanel().setZoomIn();
+            if(zoomCounter == 10) {
+                zoomInItem.setEnabled(false);
+                return;
+            }
+        }
+        
+        if(e.getSource() == zoomOutItem) {
+            zoomCounter--;
+            zoomInItem.setEnabled(true);
+            zoomOutItem.setEnabled(true);
+            DrawingPanel.getDrawingPanel().setZoomOut();
+            if(zoomCounter == 0){
+                zoomOutItem.setEnabled(false);
+                return;
+            }
         }
 
         if (e.getSource() == guideLinesItem) {
