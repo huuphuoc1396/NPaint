@@ -65,12 +65,10 @@ import java.util.Queue;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
@@ -137,7 +135,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     private QuadCurve2D.Float quadCurve;
     private CubicCurve2D.Float cubicCurve;
     private boolean isRandomColor = false;
-    static JTextArea t = new JTextArea();
+    static JTextArea t;
     private boolean isGredientColor = false;
     private BufferedImage image, scaledImage;
     private RegularPolygon rahimbus;
@@ -175,6 +173,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     private boolean isMousePressed;
 
     private boolean isLabel;
+    private boolean isDashe;
 
     private String currentSavePath;
 
@@ -192,9 +191,10 @@ public final class DrawingPanel extends javax.swing.JPanel {
         addMouseMotionListener(mouseListener);
         label = new JLabel();
         label.setBorder(BorderFactory.createDashedBorder(null, 5, 5));
+        t = new JTextArea();
+        t.setBorder(BorderFactory.createEmptyBorder());
         t.setBackground(new Color(0, 0, 0, 0));
         t.setColumns(0);
-        t.setLineWrap(true);
         t.setEditable(false);
         this.add(t);
 
@@ -396,6 +396,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
         // text.setEnabled(false);
         // slider.setEnabled(false);
         basicStroke = new BasicStroke(2, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND, 1, new float[]{4}, 0);
+        isDashe = true;
     }
 
     public void unDashed() {
@@ -404,6 +405,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
         // text.setEnabled(true);
         // slider.setEnabled(true);
         setBasic();
+        isDashe = false;
     }
 
     public void setBeveled() {
@@ -746,6 +748,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 }
                 t.setForeground(currentColor);
                 t.setBounds(setTextAreaSize());
+                t.setEnabled(true);
                 t.setEditable(true);
                 t.setVisible(true);
             } else if (figures == EnumRope.GUIDELINES) {
@@ -1347,13 +1350,22 @@ public final class DrawingPanel extends javax.swing.JPanel {
             saveToUndoRedo(copyImage(image));
 
             if (e.getClickCount() == 1 && rect != null && figures == EnumRope.TEXT) {
-                if (e.getLocationOnScreen() != rect.getLocation()) {
-                    if (t.getText() != null && t.getLocationOnScreen().x > 0 && t.getLocationOnScreen().y > 0) {
-                        g2D.setFont(myFont);
-                        g2D.setColor(currentColor);
-                        g2D.drawString(t.getText(), setTextAreaSize().x + 5, setTextAreaSize().y + myFont.getSize());
+                if (drawingPanel.getComponentAt(startpoint) != t) {
+                    if (t.getWidth() > 0 && t.getHeight() > 0) {
+                        t.setEnabled(false);
+                        t.setBorder(BorderFactory.createEmptyBorder());
+                        t.setDisabledTextColor(currentColor);
+                        BufferedImage bi = new BufferedImage(t.getWidth(), t.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                        Graphics2D g = bi.createGraphics();
+                        t.print(g);
+                        g2D.drawImage(bi, t.getX(), t.getY(), OBSERVER);
+                        g2D.setStroke(basicStroke);
+                        if (isDashe) {
+                            setDashed();
+                        } else {
+                            unDashed();
+                        }
                         t.setText("");
-                        t.setEditable(false);
                         t.setVisible(false);
                         rect = null;
                         repaint();
