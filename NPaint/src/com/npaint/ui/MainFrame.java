@@ -5,6 +5,8 @@
  */
 package com.npaint.ui;
 
+import com.npaint.Utils;
+import com.npaint.model.shapes.EnumRope;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -19,8 +21,9 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form MainFrame
      */
     public MainFrame() {
-        this.setIconImage(new ImageIcon(getClass().getResource("/com/npaint/icon/npaint_icon.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/com/npaint/icon/npaint_main_icon.png")).getImage());
         initComponents();
+        drawingPanel.setFigures(EnumRope.PENCIL);
     }
 
     /**
@@ -32,9 +35,10 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scrollPane = new javax.swing.JScrollPane();
+        drawingScrollPane = new javax.swing.JScrollPane();
         panel = new javax.swing.JPanel();
         drawingPanel = new com.npaint.ui.DrawingPanel();
+        homeScrollPane = new javax.swing.JScrollPane();
         homePanel = new com.npaint.ui.HomePanel();
         menuBar = new com.npaint.ui.MenuBar();
 
@@ -48,12 +52,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         panel.setMaximumSize(new java.awt.Dimension(1280, 720));
         panel.setPreferredSize(new java.awt.Dimension(1280, 720));
-
-        drawingPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                drawingPanelMousePressed(evt);
-            }
-        });
 
         javax.swing.GroupLayout drawingPanelLayout = new javax.swing.GroupLayout(drawingPanel);
         drawingPanel.setLayout(drawingPanelLayout);
@@ -81,7 +79,13 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        scrollPane.setViewportView(panel);
+        drawingScrollPane.setViewportView(panel);
+
+        homeScrollPane.setMaximumSize(new java.awt.Dimension(1280, 150));
+
+        homePanel.setMaximumSize(new java.awt.Dimension(1280, 150));
+        homePanel.setMinimumSize(new java.awt.Dimension(32, 32));
+        homeScrollPane.setViewportView(homePanel);
 
         setJMenuBar(menuBar);
 
@@ -91,18 +95,16 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1290, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(homePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(drawingScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1290, Short.MAX_VALUE)
+                    .addComponent(homeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(homePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
+                .addComponent(homeScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(drawingScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -110,11 +112,10 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        int response = JOptionPane.showConfirmDialog(null, "Do you want to save changes to Untitled?",
-                "NPaint", JOptionPane.YES_NO_CANCEL_OPTION);
+        int response = Utils.showConfirmSaveDialog();
         switch (response) {
             case JOptionPane.YES_OPTION:
-                // Save Image
+                drawingPanel.save();
                 break;
             case JOptionPane.NO_OPTION:
                 System.exit(0);
@@ -126,10 +127,6 @@ public class MainFrame extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_formWindowClosing
-
-    private void drawingPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawingPanelMousePressed
-        ColoursPanel.getColoursPanel().setCurrentColor(DrawingPanel.getDrawingPanel().getCurrentColor());
-    }//GEN-LAST:event_drawingPanelMousePressed
 
     /**
      * @param args the command line arguments
@@ -159,16 +156,17 @@ public class MainFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
+        new Thread(() -> {
             new MainFrame().setVisible(true);
-        });
+        }).start();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.npaint.ui.DrawingPanel drawingPanel;
+    private javax.swing.JScrollPane drawingScrollPane;
     private com.npaint.ui.HomePanel homePanel;
+    private javax.swing.JScrollPane homeScrollPane;
     private com.npaint.ui.MenuBar menuBar;
     private javax.swing.JPanel panel;
-    private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 }

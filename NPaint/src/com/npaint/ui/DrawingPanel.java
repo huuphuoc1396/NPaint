@@ -1318,6 +1318,8 @@ public final class DrawingPanel extends javax.swing.JPanel {
             newShapes.add(e.getPoint());
             points.add(newShapes);
 
+            ColoursPanel.getColoursPanel().setCurrentColor(DrawingPanel.getDrawingPanel().getCurrentColor());
+
             currentX = oldX = e.getX();
             currentY = oldY = e.getY();
             repaint();
