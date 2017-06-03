@@ -62,16 +62,22 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         openItem.setMnemonic('O');
         openItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         fileMenu.add(openItem);
+        
+        fileMenu.addSeparator();
 
         saveItem.setMnemonic('S');
         saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         fileMenu.add(saveItem);
 
         fileMenu.add(saveAsItem);
+        
+        fileMenu.addSeparator();
 
         printItem.setMnemonic('P');
         printItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         fileMenu.add(printItem);
+        
+        fileMenu.addSeparator();
 
         closeItem.setMnemonic('E');
         closeItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
@@ -90,6 +96,8 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         redoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         editMenu.add(redoItem);
 
+        editMenu.addSeparator();
+        
         cutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         editMenu.add(cutItem);
 
@@ -111,6 +119,8 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         zoomOutItem.setEnabled(false);
         viewMenu.add(zoomOutItem);
         
+        viewMenu.addSeparator();
+        
         viewMenu.add(guideLinesItem);
 
         helpMenu = new JMenu("Help");
@@ -120,11 +130,16 @@ public final class MenuBar extends JMenuBar implements ActionListener {
 
         helpItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
         helpMenu.add(helpItem);
-
+        
+        helpMenu.addSeparator();
+        
         helpMenu.add(checkUpdateItem);
 
         aboutItem.setMnemonic('A');
         aboutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        
+        helpMenu.addSeparator();
+        
         helpMenu.add(aboutItem);
 
         add(fileMenu);
