@@ -32,6 +32,7 @@ public final class MenuBar extends JMenuBar implements ActionListener {
     private final JMenuItem copyItem;
     private final JMenuItem cutItem;
     private final JMenuItem pasteItem;
+    private final JMenuItem blurItem;
 
     private final JMenu viewMenu;
     private final JMenuItem zoomInItem;
@@ -89,6 +90,7 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         cutItem = new JMenuItem("Cut");
         copyItem = new JMenuItem("Copy");
         pasteItem = new JMenuItem("Paste");
+        blurItem = new JMenuItem("Blur");
 
         undoItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         editMenu.add(undoItem);
@@ -106,6 +108,12 @@ public final class MenuBar extends JMenuBar implements ActionListener {
 
         pasteItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         editMenu.add(pasteItem);
+        
+        editMenu.addSeparator();
+        
+        blurItem.setMnemonic('B');
+        blurItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        editMenu.add(blurItem);
 
         viewMenu = new JMenu("View");
         zoomInItem = new JMenuItem("Zoom In");
@@ -167,7 +175,8 @@ public final class MenuBar extends JMenuBar implements ActionListener {
         cutItem.addActionListener(this);
         copyItem.addActionListener(this);
         pasteItem.addActionListener(this);
-
+        blurItem.addActionListener(this);
+        
         zoomInItem.addActionListener(this);
         zoomOutItem.addActionListener(this);
         guideLinesItem.addActionListener(this);
@@ -270,6 +279,10 @@ public final class MenuBar extends JMenuBar implements ActionListener {
             });
         }
         
+        if(e.getSource() == blurItem) {
+            DrawingPanel.getDrawingPanel().BlurImage();
+            DrawingPanel.getDrawingPanel().repaint();
+        }
         
         if(e.getSource() == zoomInItem) {
             zoomCounter++;
