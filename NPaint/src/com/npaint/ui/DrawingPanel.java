@@ -201,7 +201,6 @@ public final class DrawingPanel extends javax.swing.JPanel {
         this.add(t);
 
         image = new BufferedImage(AREA_WIDTH, AREA_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-        image.setRGB(255, 255, 255);
         setVisible(true);
         floodFillImage(image, 0, 0, Color.WHITE);
         undoRedoManager = new UndoRedoManager<>(image);
@@ -1319,7 +1318,9 @@ public final class DrawingPanel extends javax.swing.JPanel {
             newShapes.add(e.getPoint());
             points.add(newShapes);
 
-            ColoursPanel.getColoursPanel().setCurrentColor(DrawingPanel.getDrawingPanel().getCurrentColor());
+            if (figures == EnumRope.COLORPICKER) {
+                ColoursPanel.getColoursPanel().setCurrentColor(DrawingPanel.getDrawingPanel().getCurrentColor());
+            }
 
             currentX = oldX = e.getX();
             currentY = oldY = e.getY();
