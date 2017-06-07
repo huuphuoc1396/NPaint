@@ -1318,10 +1318,6 @@ public final class DrawingPanel extends javax.swing.JPanel {
             newShapes.add(e.getPoint());
             points.add(newShapes);
 
-            if (figures == EnumRope.COLORPICKER) {
-                ColoursPanel.getColoursPanel().setCurrentColor(DrawingPanel.getDrawingPanel().getCurrentColor());
-            }
-
             currentX = oldX = e.getX();
             currentY = oldY = e.getY();
             repaint();
@@ -1399,6 +1395,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
             if (figures == EnumRope.COLORPICKER) {
                 int color = image.getRGB(oldX, oldY);
                 currentColor = new Color(color, true);
+                ColoursPanel.getColoursPanel().setCurrentColor(currentColor);
             }
 
         }
