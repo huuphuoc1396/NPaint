@@ -203,6 +203,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
         image = new BufferedImage(AREA_WIDTH, AREA_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         image.setRGB(255, 255, 255);
         setVisible(true);
+        floodFillImage(image, 0, 0, Color.WHITE);
         undoRedoManager = new UndoRedoManager<>(image);
     }
 
