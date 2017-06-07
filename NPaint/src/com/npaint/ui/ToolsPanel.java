@@ -6,6 +6,7 @@
 package com.npaint.ui;
 
 import com.npaint.model.shapes.EnumRope;
+import javax.swing.JButton;
 
 /**
  *
@@ -18,6 +19,7 @@ public class ToolsPanel extends javax.swing.JPanel {
      */
     public ToolsPanel() {
         initComponents();
+        toolsPanel = this;
     }
 
     /**
@@ -156,4 +158,18 @@ public class ToolsPanel extends javax.swing.JPanel {
     private javax.swing.JButton textButton;
     private javax.swing.JLabel toolsLabel;
     // End of variables declaration//GEN-END:variables
+    private static ToolsPanel toolsPanel;
+
+    public static ToolsPanel getToolsPanel() {
+        return toolsPanel;
+    }
+
+    public JButton getPencilButton() {
+        return pencilButton;
+    }
+
+    public JButton getTextButton() {
+        return textButton;
+    }
+
 }

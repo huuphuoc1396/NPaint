@@ -457,6 +457,8 @@ public final class ColoursPanel extends javax.swing.JPanel {
         currentColor = color;
         currentColorButton.setBackground(color);
         DrawingPanel.getDrawingPanel().chooseColor(color);
+        ShapesPanel.getShapesPanel().setGreadiantSelected(false);
+        ShapesPanel.getShapesPanel().setRamdomColorSelected(false);
     }
 
     public static ColoursPanel getColoursPanel() {

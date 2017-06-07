@@ -5,6 +5,8 @@
  */
 package com.npaint.ui;
 
+import javax.swing.JComboBox;
+
 /**
  *
  * @author Huu Phuoc
@@ -16,6 +18,7 @@ public class SizePanel extends javax.swing.JPanel {
      */
     public SizePanel() {
         initComponents();
+        sizePanel = this;
     }
 
     /**
@@ -90,9 +93,20 @@ public class SizePanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> sizeComboBox;
     // End of variables declaration//GEN-END:variables
 
+    private static SizePanel sizePanel;
     private static int widthStroke = 1;
+
+    public static SizePanel getSizePanel() {
+        return sizePanel;
+    }
 
     public static int getWidthStroke() {
         return widthStroke;
     }
+
+    public JComboBox<String> getSizeComboBox() {
+        return sizeComboBox;
+    }
+    
+    
 }

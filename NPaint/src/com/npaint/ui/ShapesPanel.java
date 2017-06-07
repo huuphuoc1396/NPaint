@@ -18,6 +18,7 @@ public class ShapesPanel extends javax.swing.JPanel {
      */
     public ShapesPanel() {
         initComponents();
+        shapesPanel = this;
     }
 
     /**
@@ -262,14 +263,20 @@ public class ShapesPanel extends javax.swing.JPanel {
 
     private void mixColorsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mixColorsCheckBoxActionPerformed
         if (mixColorsCheckBox.isSelected()) {
+            setGreadiantSelected(false);
+            mixColorsCheckBox.setEnabled(false);
+            greadiantCheckBox.setEnabled(false);
             DrawingPanel.getDrawingPanel().setRandomColor();
         } else {
-            DrawingPanel.getDrawingPanel().setUnRandomColor();
+            ColoursPanel.getColoursPanel().setCurrentColor(ColoursPanel.getCurrentColor());
         }
     }//GEN-LAST:event_mixColorsCheckBoxActionPerformed
 
     private void greadiantCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_greadiantCheckBoxActionPerformed
         if (greadiantCheckBox.isSelected()) {
+            setRamdomColorSelected(false);
+            greadiantCheckBox.setEnabled(false);
+            mixColorsCheckBox.setEnabled(false);
             DrawingPanel.getDrawingPanel().setGreadiant();
         }
     }//GEN-LAST:event_greadiantCheckBoxActionPerformed
@@ -293,10 +300,29 @@ public class ShapesPanel extends javax.swing.JPanel {
     private javax.swing.JButton startButton;
     private javax.swing.JButton triangleButton;
     // End of variables declaration//GEN-END:variables
-
+    private static ShapesPanel shapesPanel;
     public static boolean isFill;
+
+    public static ShapesPanel getShapesPanel() {
+        return shapesPanel;
+    }
 
     public static boolean isIsFill() {
         return isFill;
+    }
+
+    public void setGreadiantSelected(boolean b) {
+        greadiantCheckBox.setSelected(b);
+        greadiantCheckBox.setEnabled(!b);
+    }
+
+    public void setRamdomColorSelected(boolean b) {
+        mixColorsCheckBox.setSelected(b);
+        mixColorsCheckBox.setEnabled(!b);
+        if (b) {
+            DrawingPanel.getDrawingPanel().setRandomColor();
+        } else {
+            DrawingPanel.getDrawingPanel().setUnRandomColor();
+        }
     }
 }

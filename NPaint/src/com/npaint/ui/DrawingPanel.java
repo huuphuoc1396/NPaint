@@ -173,7 +173,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     private boolean isMousePressed;
 
     private boolean isLabel;
-    private boolean isDashe;
+    private boolean isDashed;
 
     private String currentSavePath;
 
@@ -399,20 +399,20 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
     public void setDashed() {
 
-        // pen.setEnabled(false);
-        // text.setEnabled(false);
-        // slider.setEnabled(false);
+        ToolsPanel.getToolsPanel().getPencilButton().setEnabled(false);
+        ToolsPanel.getToolsPanel().getTextButton().setEnabled(false);
+        SizePanel.getSizePanel().getSizeComboBox().setEnabled(false);
         basicStroke = new BasicStroke(2, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND, 1, new float[]{4}, 0);
-        isDashe = true;
+        isDashed = true;
     }
 
     public void unDashed() {
 
-        // pen.setEnabled(true);
-        // text.setEnabled(true);
-        // slider.setEnabled(true);
+        ToolsPanel.getToolsPanel().getPencilButton().setEnabled(true);
+        ToolsPanel.getToolsPanel().getTextButton().setEnabled(true);
+        SizePanel.getSizePanel().getSizeComboBox().setEnabled(true);
         setBasic();
-        isDashe = false;
+        isDashed = false;
     }
 
     public void setBeveled() {
@@ -1373,7 +1373,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
                         t.print(g);
                         g2D.drawImage(bi, t.getX(), t.getY(), OBSERVER);
                         g2D.setStroke(basicStroke);
-                        if (isDashe) {
+                        if (isDashed) {
                             setDashed();
                         } else {
                             unDashed();
