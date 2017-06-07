@@ -1360,7 +1360,9 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
             rectangle = new java.awt.Rectangle();
             movedRectangle = new java.awt.Rectangle();
-            saveToUndoRedo(copyImage(image));
+            if (EnumRope.COPY != figures && EnumRope.SELECTION != figures) {
+                saveToUndoRedo(copyImage(image));
+            }
 
             if (e.getClickCount() == 1 && rect != null && figures == EnumRope.TEXT) {
                 if (drawingPanel.getComponentAt(startpoint) != t) {
