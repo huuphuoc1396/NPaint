@@ -62,6 +62,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -91,7 +92,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(204, 204, 204));
         setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
         setPreferredSize(new java.awt.Dimension(1280, 720));
@@ -348,7 +349,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
     private static BufferedImage createRotated(BufferedImage image) {
         AffineTransform at = AffineTransform.getRotateInstance(
-                Math.PI, image.getWidth() / 2, image.getHeight() / 2.0);
+                Math.PI/2, image.getWidth()/2.0, image.getHeight()/2.0);
         return createTransformed(image, at);
     }
 
@@ -621,6 +622,9 @@ public final class DrawingPanel extends javax.swing.JPanel {
                     repaint();
                 }
 
+            } else if (figures == EnumRope.AIR_BRUSH) {
+                addAirBrush(currentColor, thickness);
+                repaint();
             } else if (figures == EnumRope.ERASER) {
                 if (isMousePressed) {
                     g2d.drawLine(oldX, oldY, currentX, currentY);
@@ -1263,6 +1267,20 @@ public final class DrawingPanel extends javax.swing.JPanel {
         repaint();
     }
 
+    public void addAirBrush(Color color, int tickness) {
+        Random rand = new Random(); // new Random class
+        g2D.setColor(color);
+        int[][] brushPoints = new int[(tickness * tickness) / 10][2];   // create a new two-dimensional array of variable size
+        for (int i = 0; i < (tickness * tickness) / 10; i++) {
+            int pts[] = new int[2];
+            pts[0] = rand.nextInt(tickness);    // fill the array with random integers
+            pts[1] = rand.nextInt(tickness);
+            g2D.drawRect(oldX + pts[0], oldY + pts[1], 1, 1);   //draw a rectangle to create a brush effect
+            brushPoints[i] = pts;
+        }
+        repaint();
+    }
+
     public void addCurve(CubicCurve2D.Float cubicCurve) {
         g2D.draw(cubicCurve);
         repaint();
@@ -1545,6 +1563,10 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 repaint();
             }
 
+            if (figures == EnumRope.AIR_BRUSH) {
+                addAirBrush(currentColor, thickness);
+                repaint();
+            }
         }
 
 //----------------GETTING RELEASED COORDINATE TO DRAW LINE-------------------------

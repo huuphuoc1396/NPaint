@@ -258,6 +258,11 @@ public final class ColoursPanel extends javax.swing.JPanel {
         });
 
         currentColorButton.setAlignmentY(0.0F);
+        currentColorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                currentColorButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -376,6 +381,10 @@ public final class ColoursPanel extends javax.swing.JPanel {
     private void color0ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_color0ButtonActionPerformed
         setCurrentColor(color0Button.getBackground());
     }//GEN-LAST:event_color0ButtonActionPerformed
+
+    private void currentColorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currentColorButtonActionPerformed
+        setCurrentColor(currentColorButton.getBackground());
+    }//GEN-LAST:event_currentColorButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton color0Button;

@@ -320,6 +320,9 @@
       <Properties>
         <Property name="alignmentY" type="float" value="0.0"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="currentColorButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

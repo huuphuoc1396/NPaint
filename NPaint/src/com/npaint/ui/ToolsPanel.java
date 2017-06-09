@@ -141,7 +141,7 @@ public class ToolsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_rubberButtonActionPerformed
 
     private void airBrushButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_airBrushButtonActionPerformed
-        // TODO add your handling code here:
+        DrawingPanel.getDrawingPanel().setFigures(EnumRope.AIR_BRUSH);
     }//GEN-LAST:event_airBrushButtonActionPerformed
 
     private void pickButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pickButtonActionPerformed
