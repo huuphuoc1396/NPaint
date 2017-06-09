@@ -431,7 +431,7 @@ public final class ColoursPanel extends javax.swing.JPanel {
 
         currentColorButton.setBackground(Color.BLACK);
 
-        color0Button.setBackground(colors[0]);
+        color0Button.setBackground(Color.BLACK);
         color1Button.setBackground(colors[1]);
         color2Button.setBackground(colors[2]);
         color3Button.setBackground(colors[3]);
@@ -451,7 +451,7 @@ public final class ColoursPanel extends javax.swing.JPanel {
         color17Button.setBackground(colors[17]);
         color18Button.setBackground(colors[18]);
         color19Button.setBackground(colors[19]);
-        color20Button.setBackground(colors[20]);
+        color20Button.setBackground(Color.WHITE);
     }
 
     public void showColorChooser() {
