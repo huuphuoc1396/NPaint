@@ -5,6 +5,8 @@
  */
 package com.npaint.ui;
 
+import com.npaint.model.shapes.EnumRope;
+
 /**
  *
  * @author Huu Phuoc
@@ -31,6 +33,11 @@ public class BrushesPanel extends javax.swing.JPanel {
         brushesChooserLabel = new javax.swing.JLabel();
 
         brushesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Brush", "Airbrush" }));
+        brushesComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brushesComboBoxActionPerformed(evt);
+            }
+        });
 
         brushesChooserLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         brushesChooserLabel.setText("Brushes");
@@ -51,6 +58,17 @@ public class BrushesPanel extends javax.swing.JPanel {
                 .addComponent(brushesChooserLabel))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void brushesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brushesComboBoxActionPerformed
+        switch(brushesComboBox.getSelectedIndex()) {
+            case 0:
+                DrawingPanel.getDrawingPanel().setFigures(EnumRope.PENCIL);
+                break;
+            case 1:
+                DrawingPanel.getDrawingPanel().setFigures(EnumRope.AIR_BRUSH);
+                break;
+        }
+    }//GEN-LAST:event_brushesComboBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

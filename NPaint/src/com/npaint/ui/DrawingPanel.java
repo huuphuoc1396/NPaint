@@ -149,7 +149,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
     private final List<List<Point>> points = new ArrayList<>(25);
     private static int AREA_WIDTH = 1280, AREA_HEIGHT = 720;
     private final static MyObserver OBSERVER = new MyObserver();
-    private int thickness = 2, oldX, oldY, currentX, currentY, X, Y;
+    private int thickness = 3, oldX, oldY, currentX, currentY, X, Y;
     protected final MyMouseListener mouseListener = new MyMouseListener();
     private final UndoRedoManager<BufferedImage> undoRedoManager;
     private final Color selectionTrans = UIManager.getColor("List.selectionBackground");
@@ -158,6 +158,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
             BasicStroke.JOIN_ROUND);
     private float x1, y1, xc1cur, yc1cur, xc1new, yc1new, xc2cur, yc2cur, xc2new,
             yc2new, x4cur, y4cur, x4new, y4new;
+    private int prevX, prevY;
     private final BasicStroke stroke = new BasicStroke(1f, BasicStroke.CAP_BUTT,
             BasicStroke.JOIN_BEVEL, 10f, dashes, 0f);
     private final Color selectionColor = new Color(240, 240, 240, 128);
@@ -349,7 +350,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
 
     private static BufferedImage createRotated(BufferedImage image) {
         AffineTransform at = AffineTransform.getRotateInstance(
-                Math.PI/2, image.getWidth()/2.0, image.getHeight()/2.0);
+                Math.PI / 2, image.getWidth() / 2.0, image.getHeight() / 2.0);
         return createTransformed(image, at);
     }
 
@@ -623,8 +624,7 @@ public final class DrawingPanel extends javax.swing.JPanel {
                 }
 
             } else if (figures == EnumRope.AIR_BRUSH) {
-                addAirBrush(currentColor, thickness);
-                repaint();
+
             } else if (figures == EnumRope.ERASER) {
                 if (isMousePressed) {
                     g2d.drawLine(oldX, oldY, currentX, currentY);
@@ -1267,18 +1267,22 @@ public final class DrawingPanel extends javax.swing.JPanel {
         repaint();
     }
 
-    public void addAirBrush(Color color, int tickness) {
-        Random rand = new Random(); // new Random class
-        g2D.setColor(color);
-        int[][] brushPoints = new int[(tickness * tickness) / 10][2];   // create a new two-dimensional array of variable size
-        for (int i = 0; i < (tickness * tickness) / 10; i++) {
-            int pts[] = new int[2];
-            pts[0] = rand.nextInt(tickness);    // fill the array with random integers
-            pts[1] = rand.nextInt(tickness);
-            g2D.drawRect(oldX + pts[0], oldY + pts[1], 1, 1);   //draw a rectangle to create a brush effect
-            brushPoints[i] = pts;
+    private void addAirBrush(int tickness, int pointX1, int pointY1) {
+        g2D.setStroke(new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        if (figures == EnumRope.AIR_BRUSH) //if isSelected tool is BRUSH
+        {
+            Random rand = new Random();
+            int col = (tickness * tickness) / (tickness - tickness/2);
+            int[][] brushPoints = new int[col][2];    //create a new two-dimensional array of variable size
+            for (int i = 0; i < col; i++) {
+                int pts[] = new int[2];
+                pts[0] = rand.nextInt(tickness * tickness);      //fill the array with random integers
+                pts[1] = rand.nextInt(tickness * tickness);
+                g2D.drawRect(pointX1 + pts[0], pointY1 + pts[1], 1, 1);  //draw a rectangle to create a brush effect
+                brushPoints[i] = pts;
+            }
+            repaint();                                                              //repaint to properly display stroke
         }
-        repaint();
     }
 
     public void addCurve(CubicCurve2D.Float cubicCurve) {
@@ -1336,8 +1340,8 @@ public final class DrawingPanel extends javax.swing.JPanel {
             newShapes.add(e.getPoint());
             points.add(newShapes);
 
-            currentX = oldX = e.getX();
-            currentY = oldY = e.getY();
+            currentX = oldX = prevX = e.getX();
+            currentY = oldY = prevY = e.getY();
             repaint();
 
             ClipboardPanel.getClipboardPanel().selected(false);
@@ -1554,19 +1558,28 @@ public final class DrawingPanel extends javax.swing.JPanel {
                     break;
             }
 
-//--------WE NEED ADD THIS TWO SHAPE HERE BECAUSE SHAPE DARWING WITH MOUSEDRAG !
-            if (figures == EnumRope.ERASER) {
-                addPencil(Color.WHITE, thickness + 8);
-                repaint();
-            } else if (figures == EnumRope.PENCIL) {
-                addPencil(currentColor, thickness);
-                repaint();
+            if (null != figures)//--------WE NEED ADD THIS TWO SHAPE HERE BECAUSE SHAPE DARWING WITH MOUSEDRAG !
+            {
+                switch (figures) {
+                    case ERASER:
+                        addPencil(Color.WHITE, thickness + 8);
+                        repaint();
+                        break;
+                    case PENCIL:
+                        addPencil(currentColor, thickness);
+                        repaint();
+                        break;
+                    case AIR_BRUSH:
+                        addAirBrush(thickness, prevX, prevY);
+                        repaint();
+                        break;
+                    default:
+                        break;
+                }
             }
 
-            if (figures == EnumRope.AIR_BRUSH) {
-                addAirBrush(currentColor, thickness);
-                repaint();
-            }
+            prevX = currentX;
+            prevY = currentY;
         }
 
 //----------------GETTING RELEASED COORDINATE TO DRAW LINE-------------------------
